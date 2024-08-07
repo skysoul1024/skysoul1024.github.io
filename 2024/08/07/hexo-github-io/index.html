@@ -10,12 +10,12 @@
     <meta name="copyright" content="skysoul1024">
         <meta name="keywords" content="ctf,pwn,逆向,reverse,cybersecurity,hacking">
     <meta name="description" content="分享自己學習資安的一些東西">
-    <meta name="description" content="前言紀錄一下架設網頁的過程與遇到的問題，沒學過前端一樣輕鬆架設網站。 如果有任何錯誤麻煩告知。 前置作業安裝 Node.js後面需要用到 npm 安裝 Hexo，所以需要先安裝 npm。npm 稱為 Node 套件管理員，安裝 Node.js 也會同時安裝 npm。 先用以下指令安裝 nvm: curl -o- https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;nvm-sh&#x2F;nv">
+    <meta name="description" content="紀錄一下架設網頁的過程與遇到的問題，沒學過前端一樣輕鬆架設網站。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 Hexo + GitHub Pages 架設部落格">
 <meta property="og:url" content="https://skysoul1024.github.io/2024/08/07/hexo-github-io/index.html">
 <meta property="og:site_name" content="skysoul1024&#39;s blog">
-<meta property="og:description" content="前言紀錄一下架設網頁的過程與遇到的問題，沒學過前端一樣輕鬆架設網站。 如果有任何錯誤麻煩告知。 前置作業安裝 Node.js後面需要用到 npm 安裝 Hexo，所以需要先安裝 npm。npm 稱為 Node 套件管理員，安裝 Node.js 也會同時安裝 npm。 先用以下指令安裝 nvm: curl -o- https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;nvm-sh&#x2F;nv">
+<meta property="og:description" content="紀錄一下架設網頁的過程與遇到的問題，沒學過前端一樣輕鬆架設網站。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/CE5u4v1.png">
 <meta property="og:image" content="https://i.imgur.com/vWO2mIw.png">
@@ -26,9 +26,9 @@
 <meta property="og:image" content="https://i.imgur.com/Sa2JnBK.png">
 <meta property="og:image" content="https://i.imgur.com/b0j5Kr2.png">
 <meta property="article:published_time" content="2024-08-06T16:09:58.000Z">
-<meta property="article:modified_time" content="2024-08-07T13:06:56.726Z">
+<meta property="article:modified_time" content="2024-08-07T15:09:06.694Z">
 <meta property="article:author" content="skysoul1024">
-<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.imgur.com/CE5u4v1.png">
     <meta http-equiv="Cache-control" content="no-cache">
@@ -291,10 +291,13 @@
             <div class="post-intros">
                 <!-- 文章页标签  -->
                     <div class="post-intro-tags" >
-        <a class="post-tag" href="javascript:void(0);" data-tags="hexo">hexo</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="Hexo">Hexo</a>
 </div>
 
                 <!-- 文章字数统计 -->
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">1.4k</span>Reading time: <span class="post-count reading-time">5 min</span></span>
+                    </div>
                 <div class="post-intro-meta">
                     <!-- 撰写日期 -->
                     <span class="iconfont-archer post-intro-calander">&#xe676;</span>
@@ -450,7 +453,7 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>紀錄一下架設網頁的過程與遇到的問題，沒學過前端一樣輕鬆架設網站。</p>
+        <p>紀錄一下架設網頁的過程與遇到的問題，沒學過前端一樣輕鬆架設網站。</p>
 <p>如果有任何錯誤麻煩告知。</p>
 <h1 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h1><h2 id="安裝-Node-js"><a href="#安裝-Node-js" class="headerlink" title="安裝 Node.js"></a>安裝 Node.js</h2><p>後面需要用到 npm 安裝 Hexo，所以需要先安裝 npm。npm 稱為 Node 套件管理員，安裝 Node.js 也會同時安裝 npm。</p>
 <p>先用以下指令安裝 nvm: <code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash</code></p>
@@ -513,7 +516,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="設定-themes-archer-config-yml"><a href="#設定-themes-archer-config-yml" class="headerlink" title="設定 &#x2F;themes&#x2F;archer&#x2F;_config.yml"></a>設定 &#x2F;themes&#x2F;archer&#x2F;_config.yml</h2><p>這部分我會介紹我更動過的元素<br><code>avatar</code>: 大頭貼，路徑如果類似這樣 <code>/avatar/Misaka.png</code>，要把圖片放到 <code>themes/archer/source/avatar</code> 下面<br><code>social</code>: 這裡可以新增各種社交軟體的連結，會以圖片形式在網頁上呈現<br><code>SEO_title, SEO_keywords</code>: 不太懂，我設定的和 <code>_config.yml</code> 的 <code># Site</code> 那裡一樣<br><code>main_title</code>: 主畫面的標題<br><code>subtitle</code>: 標題下面的字<br><code>site_header_image</code>: 主畫面的背景圖，路徑邏輯和大頭貼一樣<br><code>post_header_image</code>: 文章內的背景圖<br><code>search</code>: 能不能被搜尋到? 總之打開就對了<br><code>favicon</code>: 瀏覽器分頁上面的那個小小的圖片<br><code>copyright</code>: 要不要在文章下面出現作者, 發布日期, license 等等</p>
+<h2 id="設定-themes-archer-config-yml"><a href="#設定-themes-archer-config-yml" class="headerlink" title="設定 &#x2F;themes&#x2F;archer&#x2F;_config.yml"></a>設定 &#x2F;themes&#x2F;archer&#x2F;_config.yml</h2><p>這部分我會介紹我更動過的元素<br><code>avatar</code>: 大頭貼，路徑如果類似這樣 <code>/avatar/Misaka.png</code>，要把圖片放到 <code>themes/archer/source/avatar</code> 下面<br><code>social</code>: 這裡可以新增各種社交軟體的連結，會以圖片形式在網頁上呈現<br><code>SEO_title, SEO_keywords</code>: 不太懂，我設定的和 <code>_config.yml</code> 的 <code># Site</code> 那裡一樣<br><code>main_title</code>: 主畫面的標題<br><code>subtitle</code>: 標題下面的字<br><code>site_header_image</code>: 主畫面的背景圖，路徑邏輯和大頭貼一樣<br><code>post_header_image</code>: 文章內的背景圖<br><code>favicon</code>: 瀏覽器分頁上面的那個小小的圖片<br><code>copyright</code>: 要不要在文章下面出現作者, 發布日期, license 等等</p>
 <ul>
 <li>license 可以參考我的寫法<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">copyright:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># https://creativecommons.org/</span></span><br><span class="line">  <span class="attr">license:</span> <span class="string">&lt;a</span> <span class="string">rel=&quot;license&quot;</span> <span class="string">href=&quot;https://creativecommons.org/licenses/by-nc/4.0/&quot;&gt;&lt;/a&gt;This</span> <span class="string">article</span> <span class="string">is</span> <span class="string">licensed</span> <span class="string">under&lt;a</span> <span class="string">rel=&quot;license&quot;</span> <span class="string">href=&quot;https://creativecommons.org/licenses/by-nc/4.0/&quot;&gt;</span> <span class="string">CC</span> <span class="string">BY-NC</span> <span class="number">4.0</span><span class="string">&lt;/a&gt;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -563,6 +566,7 @@
 <h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>會萌生架設自己的 Blog 的想法是因為我上周去參加 AIS3，有聽講師提到寫 Blog 除了分享技術，也是一個讓別人可以認識自己的方法。</p>
 <p>剛上研究所找指導教授時，我現在的老師問我：「你的特長是什麼?」當時我是直接被問倒，除了不自信外，我想我的表達能力也有所欠缺。</p>
 <p>希望能藉由撰寫 Blog 訓練自己並且好好認識自己。</p>
+<h3 id="相關文章"><a href="#相關文章" class="headerlink" title="相關文章"></a>相關文章</h3><p><a target="_blank" rel="noopener" href="https://israynotarray.com/vscode/20190519/2164825737/">VSCode 上直接黏貼上傳圖片到 Imgur</a> -&gt; 增加撰寫效率<br><a target="_blank" rel="noopener" href="https://github.com/chekun/hexo-excerpt">hexo-excerpt</a> -&gt; 改善摘要，讓主畫面不要太亂<br><a target="_blank" rel="noopener" href="https://blog.kyomind.tw/hexo-blog-reply/">Hexo 新增 utterances 留言板與方案選擇思路</a> -&gt; 新增留言區</p>
 
     </article>
     <!-- license -->
@@ -570,7 +574,7 @@
             <p>Author：<a href="https://skysoul1024.github.io">skysoul1024</a>
             <p>Link：<a href="https://skysoul1024.github.io/2024/08/07/hexo-github-io/">https://skysoul1024.github.io/2024/08/07/hexo-github-io/</a>
             <p>Publish date：<a href="https://skysoul1024.github.io/2024/08/07/hexo-github-io/">August 7th 2024, 12:09:58 am</a>
-            <p>Update date：<a href="https://skysoul1024.github.io/2024/08/07/hexo-github-io/">August 7th 2024, 9:06:56 pm</a>
+            <p>Update date：<a href="https://skysoul1024.github.io/2024/08/07/hexo-github-io/">August 7th 2024, 11:09:06 pm</a>
             <p>License：<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"></a>This article is licensed under<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"> CC BY-NC 4.0</a></p>
         </div>
     <!-- paginator -->
@@ -588,6 +592,13 @@
             
             
             <!-- utteranc评论 -->
+    <script src='https://utteranc.es/client.js'
+        repo="skysoul1024/skysoul1024.github.io"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin='anonymous'
+        async>
+    </script>
 
             <!-- partial('_partial/comment/changyan') -->
             <!--PC版-->
@@ -627,7 +638,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E4%BD%9C%E6%A5%AD"><span class="toc-number">2.</span> <span class="toc-text">前置作業</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-Node-js"><span class="toc-number">2.1.</span> <span class="toc-text">安裝 Node.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-git"><span class="toc-number">2.2.</span> <span class="toc-text">安裝 git</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo"><span class="toc-number">3.</span> <span class="toc-text">Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-Hexo"><span class="toc-number">3.1.</span> <span class="toc-text">安裝 Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-Hexo"><span class="toc-number">3.2.</span> <span class="toc-text">初始化 Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%B8%E6%93%87%E5%96%9C%E6%AD%A1%E7%9A%84%E4%B8%BB%E9%A1%8C"><span class="toc-number">3.3.</span> <span class="toc-text">選擇喜歡的主題</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A-config-yml"><span class="toc-number">3.4.</span> <span class="toc-text">設定 _config.yml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A-themes-archer-config-yml"><span class="toc-number">3.5.</span> <span class="toc-text">設定 &#x2F;themes&#x2F;archer&#x2F;_config.yml</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Github-Pages"><span class="toc-number">4.</span> <span class="toc-text">Github Pages</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B-Repository"><span class="toc-number">4.1.</span> <span class="toc-text">建立 Repository</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deploy"><span class="toc-number">4.2.</span> <span class="toc-text">Deploy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BC%E8%A1%A8%E6%96%B0%E6%96%87%E7%AB%A0"><span class="toc-number">4.3.</span> <span class="toc-text">發表新文章</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">5.</span> <span class="toc-text">結語</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E4%BD%9C%E6%A5%AD"><span class="toc-number">1.</span> <span class="toc-text">前置作業</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-Node-js"><span class="toc-number">1.1.</span> <span class="toc-text">安裝 Node.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-git"><span class="toc-number">1.2.</span> <span class="toc-text">安裝 git</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo"><span class="toc-number">2.</span> <span class="toc-text">Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-Hexo"><span class="toc-number">2.1.</span> <span class="toc-text">安裝 Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-Hexo"><span class="toc-number">2.2.</span> <span class="toc-text">初始化 Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%B8%E6%93%87%E5%96%9C%E6%AD%A1%E7%9A%84%E4%B8%BB%E9%A1%8C"><span class="toc-number">2.3.</span> <span class="toc-text">選擇喜歡的主題</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A-config-yml"><span class="toc-number">2.4.</span> <span class="toc-text">設定 _config.yml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A-themes-archer-config-yml"><span class="toc-number">2.5.</span> <span class="toc-text">設定 &#x2F;themes&#x2F;archer&#x2F;_config.yml</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Github-Pages"><span class="toc-number">3.</span> <span class="toc-text">Github Pages</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B-Repository"><span class="toc-number">3.1.</span> <span class="toc-text">建立 Repository</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deploy"><span class="toc-number">3.2.</span> <span class="toc-text">Deploy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BC%E8%A1%A8%E6%96%B0%E6%96%87%E7%AB%A0"><span class="toc-number">3.3.</span> <span class="toc-text">發表新文章</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">4.</span> <span class="toc-text">結語</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="toc-number">4.0.1.</span> <span class="toc-text">相關文章</span></a></li></ol></li></ol></li></ol>
             </div>
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
@@ -659,9 +670,9 @@
 
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
-            <span class="sidebar-tag-name" data-tags="hexo">
+            <span class="sidebar-tag-name" data-tags="Hexo">
                 <span class="iconfont-archer">&#xe606;</span>
-                hexo
+                Hexo
             </span>
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
