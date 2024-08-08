@@ -17,11 +17,17 @@
 <meta property="og:site_name" content="skysoul1024&#39;s blog">
 <meta property="og:description" content="包含 start、orw、CVE-2018-1160、calc、3x17">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/e4VHND4.png">
+<meta property="og:image" content="https://i.imgur.com/Dj28gPE.png">
+<meta property="og:image" content="https://i.imgur.com/tSscdWz.png">
+<meta property="og:image" content="https://i.imgur.com/jiKwzi0.png">
+<meta property="og:image" content="https://i.imgur.com/cWEJ4OL.png">
 <meta property="article:published_time" content="2024-08-07T16:33:14.000Z">
-<meta property="article:modified_time" content="2024-08-07T17:42:18.561Z">
+<meta property="article:modified_time" content="2024-08-08T09:14:29.624Z">
 <meta property="article:author" content="skysoul1024">
 <meta property="article:tag" content="Pwn">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/e4VHND4.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/avatar/kspksppain.png">
@@ -287,7 +293,7 @@
 
                 <!-- 文章字数统计 -->
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">10</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">525</span>Reading time: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 <div class="post-intro-meta">
                     <!-- 撰写日期 -->
@@ -441,14 +447,46 @@
                 <main class="main post-page">
     <article class="article-entry">
         <p>包含 start、orw、CVE-2018-1160、calc、3x17</p>
-<h1 id="Start"><a href="#Start" class="headerlink" title="Start"></a>Start</h1><h2 id="Recon"><a href="#Recon" class="headerlink" title="Recon"></a>Recon</h2>
+<p>這題需要查 <a target="_blank" rel="noopener" href="https://x86.syscall.sh/">syscall table</a></p>
+<h1 id="Start"><a href="#Start" class="headerlink" title="Start"></a>Start</h1><h2 id="Recon"><a href="#Recon" class="headerlink" title="Recon"></a>Recon</h2><p>先 nc 過去觀察行為，可以輸入東西。<br><img src="https://i.imgur.com/e4VHND4.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>檢查防護，什麼都沒開，且知道是 <strong>x86 32bit</strong> 的程式。<br><img src="https://i.imgur.com/Dj28gPE.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>看看 disassemble 的結果，這裡需要查表理解做了哪些 system call。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">.text:08048060 ; __int64 start()</span><br><span class="line">.text:08048060                 public _start</span><br><span class="line">.text:08048060 _start          proc near               ; DATA XREF: LOAD:08048018↑o</span><br><span class="line">.text:08048060                 push    esp</span><br><span class="line">.text:08048061                 push    offset _exit</span><br><span class="line">.text:08048066                 xor     eax, eax</span><br><span class="line">.text:08048068                 xor     ebx, ebx</span><br><span class="line">.text:0804806A                 xor     ecx, ecx</span><br><span class="line">.text:0804806C                 xor     edx, edx</span><br><span class="line">.text:0804806E                 push    3A465443h</span><br><span class="line">.text:08048073                 push    20656874h</span><br><span class="line">.text:08048078                 push    20747261h</span><br><span class="line">.text:0804807D                 push    74732073h</span><br><span class="line">.text:08048082                 push    2774654Ch</span><br><span class="line">.text:08048087                 mov     ecx, esp        ; addr</span><br><span class="line">.text:08048089                 mov     dl, 20</span><br><span class="line">.text:0804808B                 mov     bl, 1           ; fd</span><br><span class="line">.text:0804808D                 mov     al, 4</span><br><span class="line">.text:0804808F                 int     80h             ; LINUX - sys_write</span><br><span class="line">.text:08048091                 xor     ebx, ebx</span><br><span class="line">.text:08048093                 mov     dl, 60</span><br><span class="line">.text:08048095                 mov     al, 3</span><br><span class="line">.text:08048097                 int     80h             ; LINUX -</span><br><span class="line">.text:08048099                 add     esp, 20</span><br><span class="line">.text:0804809C                 retn</span><br></pre></td></tr></table></figure>
+<ul>
+<li>int 0x80 &#x3D; syscall</li>
+<li>0x8048066 ~ 0x804808F &#x3D; <code>sys_write(stdout, esp, 20);</code></li>
+<li>0x8048091 ~ 0x8048097 &#x3D; <code>sys_read(stdin, esp, 60);</code></li>
+<li>0x8048099 這裡只會將 stack + 20，而 read 會讀 60，意思是我們有 <strong>BOF</strong> 可以利用，且這題沒有開 NX，所以可以直接 <strong>ret2shellcode</strong></li>
+</ul>
+<h2 id="Stack-Frame"><a href="#Stack-Frame" class="headerlink" title="Stack Frame"></a>Stack Frame</h2><p>直接用 pwndbg 觀察 stack 可以更清楚的了解 payload 該怎麼填。</p>
+<p>下圖是程式剛執行 sys_write 後 stack 的樣子。<br><img src="https://i.imgur.com/tSscdWz.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<ul>
+<li>0xffc3c368 是 return address，正常執行會跳到 exit</li>
+<li>只要把 0xffc3c368 這個位置覆蓋掉就可以控制執行流程</li>
+</ul>
+<h2 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h2><p>目標確定後，開始思考 exploit 流程，總共三個步驟。</p>
+<ol>
+<li>決定第一次 read 覆蓋 return address 的位置，目標是指到 shellcode 的位置，所以首先需要知道 stack address。可以利用程式中的 write 印出 stack address，因此 return address 覆蓋為 write 的執行位置 (0x8048087)</li>
+<li>寫 shellcode，並將 return address 指到 shellcode 的位置</li>
+<li>Get Shell!</li>
+</ol>
+<h3 id="為什麼第一步重新執行一次-write-就可以取得-stack-address"><a href="#為什麼第一步重新執行一次-write-就可以取得-stack-address" class="headerlink" title="為什麼第一步重新執行一次 write 就可以取得 stack address?"></a>為什麼第一步重新執行一次 write 就可以取得 stack address?</h3><p>首先要知道每次執行程式，stack address 都會不一樣。</p>
+<p>回頭看 assembly，執行完 read 後，會執行 <code>.text:08048099                 add     esp, 20</code>，所以 esp 會到 return address 的位置<br><img src="https://i.imgur.com/jiKwzi0.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<ul>
+<li>這時候執行 ret，ret &#x3D; pop eip，因此 esp 執行完 ret 後變成 0xffc3c36c</li>
+<li>write 的 ecx 是這樣寫的 <code>.text:08048087                 mov     ecx, esp</code></li>
+</ul>
+<p>因此再執行一次 write，就會印出 0xffc3c36c 的 value &#x3D; 0xffc3c370</p>
+<!-- <img src="https://i.imgur.com/cWEJ4OL.png" alt="Imgur" style="display: block; margin-left: 0;"> -->
+
+<!-- FLAG{Pwn4bl3_tW_1s_y0ur_st4rt} -->
     </article>
     <!-- license -->
         <div class="license-wrapper">
             <p>Author：<a href="https://skysoul1024.github.io">skysoul1024</a>
             <p>Link：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-writeup-1/">https://skysoul1024.github.io/2024/08/08/pwnable-tw-writeup-1/</a>
             <p>Publish date：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-writeup-1/">August 8th 2024, 12:33:14 am</a>
-            <p>Update date：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-writeup-1/">August 8th 2024, 1:42:18 am</a>
+            <p>Update date：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-writeup-1/">August 8th 2024, 5:14:29 pm</a>
             <p>License：<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"></a>This article is licensed under<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"> CC BY-NC 4.0</a></p>
         </div>
     <!-- paginator -->
@@ -513,7 +551,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Start"><span class="toc-number">1.</span> <span class="toc-text">Start</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recon"><span class="toc-number">1.1.</span> <span class="toc-text">Recon</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Start"><span class="toc-number">1.</span> <span class="toc-text">Start</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recon"><span class="toc-number">1.1.</span> <span class="toc-text">Recon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stack-Frame"><span class="toc-number">1.2.</span> <span class="toc-text">Stack Frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exploit"><span class="toc-number">1.3.</span> <span class="toc-text">Exploit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E7%AC%AC%E4%B8%80%E6%AD%A5%E9%87%8D%E6%96%B0%E5%9F%B7%E8%A1%8C%E4%B8%80%E6%AC%A1-write-%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%8F%96%E5%BE%97-stack-address"><span class="toc-number">1.3.1.</span> <span class="toc-text">為什麼第一步重新執行一次 write 就可以取得 stack address?</span></a></li></ol></li></ol></li></ol>
             </div>
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
