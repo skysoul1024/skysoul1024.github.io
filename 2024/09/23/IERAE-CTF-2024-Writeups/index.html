@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+<!-- keywords -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="skysoul1024">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="skysoul1024">
+        <meta name="keywords" content="ctf,pwn,逆向,reverse,cybersecurity,hacking,skysoul1024,devilcat">
+    <meta name="description" content="分享自己學習資安的一些東西">
+    <meta name="description" content="最近和實驗室的學長姐們組了一個 CTF 隊伍 superzoo，也是我第一次主動和別人組隊。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IERAE CTF 2024 Writeups">
+<meta property="og:url" content="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/index.html">
+<meta property="og:site_name" content="skysoul1024&#39;s blog">
+<meta property="og:description" content="最近和實驗室的學長姐們組了一個 CTF 隊伍 superzoo，也是我第一次主動和別人組隊。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/yqSrwfV.png">
+<meta property="og:image" content="https://i.imgur.com/7eHBRzO.png">
+<meta property="og:image" content="https://i.imgur.com/oOFYXnr.png">
+<meta property="article:published_time" content="2024-09-23T08:58:02.000Z">
+<meta property="article:modified_time" content="2024-09-23T18:10:24.383Z">
+<meta property="article:author" content="skysoul1024">
+<meta property="article:tag" content="Pwn, Reversing Engneering, Writeups">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/yqSrwfV.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/avatar/kspksppain.png">
+    <title>IERAE CTF 2024 Writeups · skysoul1024&#39;s blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .footer-fixed-btn,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(
+            -45deg,
+            #444 0,
+            #444 80px,
+            #333 80px,
+            #333 160px
+        );
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link id="stylesheet-fancybox" rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link id="stylesheet-base" rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link id="stylesheet-mobile" rel="preload" href="/css/mobile.css" as="style" onload="this.onload=null;this.rel='stylesheet';this.media='screen and (max-width: 960px)'">
+    <link id="stylesheet-theme-dark" rel="preload" href="/css/dark.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    <!-- 百度统计  -->
+    <!-- 谷歌统计  -->
+    <!-- Google tag (gtag.js) -->
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+        <body class="post-body">
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        <div class="header-sidebar-menu">
+            <div style="padding-left: 1px;">&#xe775;</div>
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href="/">DevilCat's blog</a>
+        </span>
+    </div>
+    <!-- toggle banner -->
+    <div class="banner">
+        <div class="blog-title header-element">
+            <a href="/">DevilCat&#39;s blog</a>
+        </div>
+        <div class="post-title header-element">
+            <a href="#" class="post-name">IERAE CTF 2024 Writeups</a>
+        </div>
+    </div>
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- donate button -->
+
+    <!-- back to top button -->
+    <div class="footer-fixed-btn footer-fixed-btn--hidden back-top">
+        <div>&#xe639;</div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="    height:50vh;
+">
+    <!-- 主页  -->
+    <!-- 404页  -->
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/fantasy-fox.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+                IERAE CTF 2024 Writeups
+            <!-- 404 -->
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            <!-- 404 -->
+        </p>
+        <!-- 文章页 meta -->
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                    <div class="post-intro-tags" >
+        <a class="post-tag" href="javascript:void(0);" data-tags="Pwn, Reversing Engneering, Writeups">Pwn, Reversing Engneering, Writeups</a>
+</div>
+
+                <!-- 文章字数统计 -->
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">1.5k</span>Reading time: <span class="post-count reading-time">7 min</span></span>
+                    </div>
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2024/09/23</span>
+                    <!-- busuanzi -->
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" alt="loading">
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p>最近和實驗室的學長姐們組了一個 CTF 隊伍 <code>superzoo</code>，也是我第一次主動和別人組隊。</p>
+<p>這個 CTF 是我們的第一個完賽的比賽，我們最終名次為 30&#x2F;224，是我自己打比賽以來最好的一次成績，隊友都超棒的！</p>
+<p>我寫出來的題目主要是 pwn 和 rev，以及一題 misc。</p>
+<h1 id="pwn-This-is-warmup"><a href="#pwn-This-is-warmup" class="headerlink" title="[pwn] This is warmup"></a>[pwn] This is warmup</h1><h2 id="Recon"><a href="#Recon" class="headerlink" title="Recon"></a>Recon</h2><p>題目有給 source code，觸發 <code>SIGSEGV</code> 就能拿到 FLAG。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// If you cause SEGV, then you will get flag</span></span><br><span class="line">signal(SIGSEGV, win);</span><br><span class="line">setbuf(<span class="built_in">stdout</span>, <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
+
+<p>有機會觸發 <code>SIGSEGV</code> 的地方在:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> <span class="type">int</span> i=<span class="number">0</span>; i&lt;nrow; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> <span class="type">int</span> j=<span class="number">0</span>; j&lt;ncol; j++) &#123;</span><br><span class="line">        matrix[i*ncol+j] = (i+j) % <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>整個程式碼中只有這一段會寫 memory</li>
+<li>ncol 和 nrow 是使用者輸入的變數</li>
+</ul>
+<p>write matrix 前面的程式碼會對 ncol 和 nrow 做一些檢查:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (nrow * ncol &lt; nrow) &#123; <span class="comment">// this is integer overflow right?</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Don&#x27;t hack!&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">char</span> *matrix = <span class="built_in">malloc</span>(nrow*ncol);</span><br><span class="line"><span class="keyword">if</span> (!matrix) &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Too large!&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>看起來是防止使用者 integer overflow</li>
+<li>不讓 malloc 分配超過可用的 memory</li>
+</ul>
+<p>所以目標是想辦法繞過檢查，並讓後面 write matrix 超過 malloc 的範圍，導致 segmentation fault。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>要讓 write matrix 成功有 OOB write，需要 nrow * ncol 實際上大於 malloc 的大小。</p>
+<p>那麼 nrow * ncol 一定要 overflow，讓 malloc 分配很小的 memory。</p>
+<p><code>unsigned long long int = 2 ** 64 - 1</code>，所以 <code>nrow * ncol = 2 ** 64 + num, num &lt; malloc 最大上限</code>，num 是 malloc 實際分配的大小。</p>
+<p>要繞過第一個條件判斷 <code>if (nrow * ncol &lt; nrow)</code> 還需要 <code>num &lt; nrow</code>。</p>
+<p>滿足上面列出的兩個條件:</p>
+<ul>
+<li><code>nrow * ncol = 2 ** 64 + num, num &lt; malloc 最大上限</code></li>
+<li><code>num &lt; nrow</code><br>就能成功 OOB write，導致 segmentation fault。</li>
+</ul>
+<p>舉個例子，我挑 <code>num = 80000</code>，所以 <code>nrow * ncol = 18446744073709631616</code>。</p>
+<p>將這個數分割成兩數當 nrow 和 ncol，<code>nrow = 65536, ncol = 281474976710657</code>，這就是一組可要造成 segmentation fault 的 input。</p>
+<p>FLAG: <code>IERAE&#123;s33?n07_41w4y5_1_cr3a73_d1ff1cu1t_pr0b13m5&#125;</code></p>
+<h1 id="pwn-copy-and-paste"><a href="#pwn-copy-and-paste" class="headerlink" title="[pwn] copy-and-paste"></a>[pwn] copy-and-paste</h1><h2 id="Recon-1"><a href="#Recon-1" class="headerlink" title="Recon"></a>Recon</h2><p>題目有建議使用提供的 docker 環境，所以先把 docker 環境開好。</p>
+<p>FLAG 取得條件和 This is warmup 一樣是觸發 <code>SIGSEGV</code>。</p>
+<p>觀察 source code，<code>copy()</code> 的部分是將一個 buffer 複製到另一個 buffer，有機會造成 OOB write:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">buffer</span> *<span class="title">src</span> =</span> &amp;bufs[src_idx];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">buffer</span> *<span class="title">dst</span> =</span> &amp;bufs[dst_idx];</span><br><span class="line"><span class="type">size_t</span> copy_size = src-&gt;buf_size;</span><br><span class="line"><span class="keyword">if</span> (dst-&gt;buf_size &lt; copy_size) copy_size = dst-&gt;buf_size;</span><br><span class="line"></span><br><span class="line"><span class="built_in">memcpy</span>(dst-&gt;buf_ptr, src-&gt;buf_ptr, copy_size);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>但會檢查 buffer size，不讓大的 buffer 可以直接蓋到小的 buffer 上面。</li>
+</ul>
+<p>要繞過這個檢查我第一個想法是想辦法讓 buf_size 不是實際上的 size。</p>
+<p>往前翻找到 <code>create_new_buf()</code> 中 assign buf_size 的地方:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FILE *fp = fopen(fname, <span class="string">&quot;r&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (!fp) &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Your specified file doesn&#x27;t exist&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get file size to allocate buffer</span></span><br><span class="line">fseek(fp, <span class="number">0</span>, SEEK_END);</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> size = ftell(fp);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>ftell</code> 決定 buf_size</li>
+</ul>
+<p>很幸運的 google <code>pwn ftell</code> 找到 HITCON 2017 其中一題的 <a target="_blank" rel="noopener" href="https://atum.li/2017/11/08/babyfs/">Writeup</a></p>
+<blockquote>
+<p>According to code above, we know the file size actually depends on the return value of fseek and ftell. if the FILE* pointer passed into fseek and ftell is point to a FILE struct of “&#x2F;dev&#x2F;stdin”, both fseek and ftell will fail and return -1. Things become more interesting, since file_size is an unsigned value, -1 is treated as a extremely large value(i.e. MAX_ULONGINT).</p>
+</blockquote>
+<p>只要想辦法讓 <code>fseek, ftell</code> return error 就可以讓 size 為 -1，導致 overflow 使 size 變得超大，就可以繞過檢查，讓大的 buffer 蓋到看起來很大實際上比較小的 buffer 上，導致 segmentation fault。</p>
+<h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h2><p><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man3/fseek.3.html">fseek(3) — Linux manual page</a></p>
+<blockquote>
+<p><strong>ESPIPE</strong> The file descriptor underlying stream is not seekable (e.g., it refers to a pipe, FIFO, or socket).</p>
+<blockquote>
+<p>The functions fgetpos(), fseek(), fsetpos(), and ftell() may also fail and set errno for any of the errors specified for the routines fflush(3), fstat(2), lseek(2), and malloc(3).</p>
+</blockquote>
+</blockquote>
+<p>那麼只要去 container 中找到 pipe, FIFO, socket 的檔案，然後用他們 create buffer 就能成功取得 size &#x3D; -1 的 buffer。</p>
+<p>最後我是選擇 <code>/var/run</code> 和 <code>/bin/bash</code>，然後 <code>/bin/bash</code> 覆蓋到 <code>/var/run</code>。</p>
+<p>FLAG: <code>IERAE&#123;7h3_f1rs7_s73p_7o_b3_4_pwn3r_51a7806b&#125;</code></p>
+<h1 id="rev-Assignment"><a href="#rev-Assignment" class="headerlink" title="[rev] Assignment"></a>[rev] Assignment</h1><p>使用 ida 分析，<code>main</code> 把 FLAG 亂排:<br><img src="https://i.imgur.com/yqSrwfV.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>直接 decompile，ida 會幫忙把 flag 排好:<br><img src="https://i.imgur.com/7eHBRzO.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>FLAG: <code>IERAE&#123;s0me_r4nd0m_str1ng_5a9354c&#125;</code></p>
+<h1 id="rev-Luz-Da-Lua"><a href="#rev-Luz-Da-Lua" class="headerlink" title="[rev] Luz Da Lua"></a>[rev] Luz Da Lua</h1><h2 id="Recon-2"><a href="#Recon-2" class="headerlink" title="Recon"></a>Recon</h2><p>題目給一個 .luac 檔案，找一個 Lua Decompiler 把給的檔案丟進去。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">-- filename: @/mnt/LuzDaLua.lua</span><br><span class="line">-- version: lua54</span><br><span class="line">-- line: [0, 0] id: 0</span><br><span class="line">io.write(&quot;Input &gt; &quot;)</span><br><span class="line">input = io.read(&quot;*l&quot;)</span><br><span class="line">if string.len(input) ~= 28 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 1) ~ 232 ~= 161 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 2) ~ 110 ~= 43 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 3) ~ 178 ~= 224 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 4) ~ 172 ~= 237 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 5) ~ 212 ~= 145 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 6) ~ 25 ~= 98 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 7) ~ 53 ~= 121 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 8) ~ 63 ~= 74 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 9) ~ 135 ~= 230 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 10) ~ 92 ~= 3 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 11) ~ 38 ~= 23 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 12) ~ 250 ~= 137 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 13) ~ 216 ~= 135 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 14) ~ 5 ~= 86 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 15) ~ 69 ~= 117 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 16) ~ 226 ~= 189 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 17) ~ 137 ~= 186 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 18) ~ 148 ~= 240 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 19) ~ 64 ~= 53 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 20) ~ 130 ~= 225 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 21) ~ 241 ~= 197 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 22) ~ 151 ~= 227 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 23) ~ 203 ~= 250 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 24) ~ 179 ~= 220 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 25) ~ 216 ~= 182 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 26) ~ 101 ~= 4 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 27) ~ 238 ~= 130 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 28) ~ 61 ~= 64 then</span><br><span class="line">  goto label_301</span><br><span class="line">else</span><br><span class="line">  print(&quot;Correct&quot;)</span><br><span class="line">end</span><br><span class="line">-- warn: not visited block [59]</span><br><span class="line">-- block#59:</span><br><span class="line">-- _ENV.print(&quot;Wrong&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>執行後可以給它一個 input，如果 input 長度 28 byte 且符合這一堆判別式，即可取得 FLAG。</p>
+<ul>
+<li><code>elseif string.byte(input, 1) ~ 232 ~= 161 then</code> 的意思是 <code>input string[1] ^ 232 != 161</code> 的話就 <code>goto label_301</code></li>
+<li>可以寫個 python 或叫 Copilot 算。</li>
+</ul>
+<h2 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h2><p>我是寫個 python，我自己用 GPT 叫它算有算錯幾個字，聽別人說 Copilot 它有算正確XD。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">flag = &#x27;&#x27;</span><br><span class="line">flag += chr(232 ^ 161)</span><br><span class="line">flag += chr(110 ^ 43)</span><br><span class="line">flag += chr(178 ^ 224)</span><br><span class="line">flag += chr(172 ^ 237)</span><br><span class="line">flag += chr(212 ^ 145)</span><br><span class="line">flag += chr(25 ^ 98)</span><br><span class="line">flag += chr(53 ^ 121)</span><br><span class="line">flag += chr(63 ^ 74)</span><br><span class="line">flag += chr(135 ^ 230)</span><br><span class="line">flag += chr(92 ^ 3)</span><br><span class="line">flag += chr(38 ^ 23)</span><br><span class="line">flag += chr(250 ^ 137)</span><br><span class="line">flag += chr(216 ^ 135)</span><br><span class="line">flag += chr(5 ^ 86)</span><br><span class="line">flag += chr(69 ^ 117)</span><br><span class="line">flag += chr(226 ^ 189)</span><br><span class="line">flag += chr(137 ^ 186)</span><br><span class="line">flag += chr(148 ^ 240)</span><br><span class="line">flag += chr(64 ^ 53)</span><br><span class="line">flag += chr(130 ^ 225)</span><br><span class="line">flag += chr(241 ^ 197)</span><br><span class="line">flag += chr(151 ^ 227)</span><br><span class="line">flag += chr(203 ^ 250)</span><br><span class="line">flag += chr(179 ^ 220)</span><br><span class="line">flag += chr(216 ^ 182)</span><br><span class="line">flag += chr(101 ^ 4)</span><br><span class="line">flag += chr(238 ^ 130)</span><br><span class="line">flag += chr(61 ^ 64)</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p>FLAG: <code>IERAE&#123;Lua_1s_S0_3duc4t1onal&#125;</code></p>
+<h1 id="misc-OMG"><a href="#misc-OMG" class="headerlink" title="[misc] OMG"></a>[misc] OMG</h1><p><img src="https://i.imgur.com/oOFYXnr.png" alt="Image"></p>
+<p>按 Start，然後按 browser 的上一頁 33 次即可取得 FLAG。</p>
+<p>FLAG: <code>IERAE&#123;Tr3ndy_4ds.LOL&#125;</code></p>
+
+    </article>
+    <!-- license -->
+        <div class="license-wrapper">
+            <p>Author：<a href="https://skysoul1024.github.io">skysoul1024</a>
+            <p>Link：<a href="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/</a>
+            <p>Publish date：<a href="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">September 23rd 2024, 4:58:02 pm</a>
+            <p>Update date：<a href="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">September 24th 2024, 2:10:24 am</a>
+            <p>License：<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"></a>This article is licensed under<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"> CC BY-NC 4.0</a></p>
+        </div>
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+        </li>
+        <li class="previous">
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2024/08/07/hexo-github-io/" title="使用 Hexo + GitHub Pages 架設部落格">
+                    <div class="prevTitle">使用 Hexo + GitHub Pages 架設部落格</div>
+                </a>
+        </li>
+    </ul>
+    <!-- comment -->
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+            
+            
+            
+            <!-- utteranc评论 -->
+    <script src='https://utteranc.es/client.js'
+        repo="skysoul1024/skysoul1024.github.io"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin='anonymous'
+        async>
+    </script>
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+            
+            
+            
+        </div>
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    <!-- Mathjax -->
+</main>
+
+                <!-- profile -->
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+        <div class="social">
+                            <a href="//github.com/skysoul1024" class="iconfont-archer github" target="_blank" title="github"></a>
+
+        </div>
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    <!-- 不蒜子  -->
+</footer>
+
+        </div>
+        <!-- toc -->
+            <div class="toc-wrapper toc-wrapper-loding" style=    top:50vh;
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pwn-This-is-warmup"><span class="toc-number">1.</span> <span class="toc-text">[pwn] This is warmup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recon"><span class="toc-number">1.1.</span> <span class="toc-text">Recon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">1.2.</span> <span class="toc-text">Solution</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pwn-copy-and-paste"><span class="toc-number">2.</span> <span class="toc-text">[pwn] copy-and-paste</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recon-1"><span class="toc-number">2.1.</span> <span class="toc-text">Recon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution-1"><span class="toc-number">2.2.</span> <span class="toc-text">Solution</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rev-Assignment"><span class="toc-number">3.</span> <span class="toc-text">[rev] Assignment</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rev-Luz-Da-Lua"><span class="toc-number">4.</span> <span class="toc-text">[rev] Luz Da Lua</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recon-2"><span class="toc-number">4.1.</span> <span class="toc-text">Recon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution-2"><span class="toc-number">4.2.</span> <span class="toc-text">Solution</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#misc-OMG"><span class="toc-number">5.</span> <span class="toc-text">[misc] OMG</span></a></li></ol>
+            </div>
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+        
+        
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 2
+        </div>
+        <!-- search  -->
+    </div>
+    <div class="post-archive">
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span>
+            <a class="archive-post-title" href="/2024/09/23/IERAE-CTF-2024-Writeups/">IERAE CTF 2024 Writeups</a>
+        </li>
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/07</span>
+            <a class="archive-post-title" href="/2024/08/07/hexo-github-io/">使用 Hexo + GitHub Pages 架設部落格</a>
+        </li>
+            </ul>
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+            <span class="sidebar-tag-name" data-tags="Pwn, Reversing Engneering, Writeups">
+                <span class="iconfont-archer">&#xe606;</span>
+                Pwn, Reversing Engneering, Writeups
+            </span>
+            <span class="sidebar-tag-name" data-tags="Hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                Hexo
+            </span>
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+        <span class="sidebar-category-name" data-categories="CTF">
+            <span class="iconfont-archer">&#xe60a;</span>
+            CTF
+        </span>
+        <span class="sidebar-category-name" data-categories="Note">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Note
+        </span>
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://skysoul1024.github.io",
+        root: siteMetaRoot,
+        author: "skysoul1024"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+        <!-- main func -->
+        <script src="/scripts/main.js"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.js" onload="window.Fancybox.bind('[data-fancybox]')" defer></script>
+        <!-- algolia -->
+        <!-- busuanzi -->
+        <!-- async load share.js -->
+            <script src="/scripts/share.js" async></script>
+        <!-- mermaid -->
+    </body>
+</html>
