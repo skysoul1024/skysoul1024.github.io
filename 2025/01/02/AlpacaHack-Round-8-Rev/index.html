@@ -10,31 +10,22 @@
     <meta name="copyright" content="skysoul1024">
         <meta name="keywords" content="ctf,pwn,逆向,reverse,cybersecurity,hacking,skysoul1024,devilcat">
     <meta name="description" content="分享自己學習資安的一些東西">
-    <meta name="description" content="紀錄一下架設網頁的過程與遇到的問題，沒學過前端一樣輕鬆架設網站。">
+    <meta name="description" content="開學後有點忙，沒時間更新文章，欠了很多篇 writeups，希望能慢慢補上。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 Hexo + GitHub Pages 架設部落格">
-<meta property="og:url" content="https://skysoul1024.github.io/2024/08/07/hexo-github-io/index.html">
+<meta property="og:title" content="AlpacaHack Round 8 (Rev) Writeups">
+<meta property="og:url" content="https://skysoul1024.github.io/2025/01/02/AlpacaHack-Round-8-Rev/index.html">
 <meta property="og:site_name" content="skysoul1024&#39;s blog">
-<meta property="og:description" content="紀錄一下架設網頁的過程與遇到的問題，沒學過前端一樣輕鬆架設網站。">
+<meta property="og:description" content="開學後有點忙，沒時間更新文章，欠了很多篇 writeups，希望能慢慢補上。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.imgur.com/CE5u4v1.png">
-<meta property="og:image" content="https://i.imgur.com/vWO2mIw.png">
-<meta property="og:image" content="https://i.imgur.com/3A3n4XC.png">
-<meta property="og:image" content="https://i.imgur.com/Enkxunr.png">
-<meta property="og:image" content="https://i.imgur.com/oIdkaMq.png">
-<meta property="og:image" content="https://i.imgur.com/DhoocpX.png">
-<meta property="og:image" content="https://i.imgur.com/Sa2JnBK.png">
-<meta property="og:image" content="https://i.imgur.com/b0j5Kr2.png">
-<meta property="article:published_time" content="2024-08-06T16:09:58.000Z">
-<meta property="article:modified_time" content="2024-09-22T08:40:18.574Z">
+<meta property="article:published_time" content="2025-01-01T18:37:55.000Z">
+<meta property="article:modified_time" content="2025-01-01T18:45:40.687Z">
 <meta property="article:author" content="skysoul1024">
-<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="rev">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.imgur.com/CE5u4v1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/avatar/kspksppain.png">
-    <title>使用 Hexo + GitHub Pages 架設部落格 · skysoul1024&#39;s blog</title>
+    <title>AlpacaHack Round 8 (Rev) Writeups · skysoul1024&#39;s blog</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -252,7 +243,7 @@
             <a href="/">DevilCat&#39;s blog</a>
         </div>
         <div class="post-title header-element">
-            <a href="#" class="post-name">使用 Hexo + GitHub Pages 架設部落格</a>
+            <a href="#" class="post-name">AlpacaHack Round 8 (Rev) Writeups</a>
         </div>
     </div>
 </header>
@@ -279,7 +270,7 @@
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-                使用 Hexo + GitHub Pages 架設部落格
+                AlpacaHack Round 8 (Rev) Writeups
             <!-- 404 -->
         </h1>
         <!-- 副标题 -->
@@ -291,17 +282,17 @@
             <div class="post-intros">
                 <!-- 文章页标签  -->
                     <div class="post-intro-tags" >
-        <a class="post-tag" href="javascript:void(0);" data-tags="Hexo">Hexo</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="rev">rev</a>
 </div>
 
                 <!-- 文章字数统计 -->
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">1.4k</span>Reading time: <span class="post-count reading-time">5 min</span></span>
+                        <span>Word count: <span class="post-count word-count">705</span>Reading time: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 <div class="post-intro-meta">
                     <!-- 撰写日期 -->
                     <span class="iconfont-archer post-intro-calander">&#xe676;</span>
-                    <span class="post-intro-time">2024/08/07</span>
+                    <span class="post-intro-time">2025/01/02</span>
                     <!-- busuanzi -->
                     <!-- 文章分享 -->
                     <span class="share-wrapper">
@@ -449,143 +440,51 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p>紀錄一下架設網頁的過程與遇到的問題，沒學過前端一樣輕鬆架設網站。</p>
-<p>如果有任何錯誤麻煩告知。</p>
-<h1 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h1><h2 id="安裝-Node-js"><a href="#安裝-Node-js" class="headerlink" title="安裝 Node.js"></a>安裝 Node.js</h2><p>後面需要用到 npm 安裝 Hexo，所以需要先安裝 npm。npm 稱為 Node 套件管理員，安裝 Node.js 也會同時安裝 npm。</p>
-<p>先用以下指令安裝 nvm: <code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash</code></p>
-<ul>
-<li>沒有 curl 要先 <code>sudo apt-get install curl</code></li>
-</ul>
-<p>然後 <code>nvm install --lts</code> 安裝 Node.js 就完成了!</p>
-<ul>
-<li>使用 <code>npm --version</code> 確認 npm 是否安裝成功。<img src="https://i.imgur.com/CE5u4v1.png" alt="Imgur" style="display: block; margin-left: 0;">
-<!-- ![Imgur](https://i.imgur.com/CE5u4v1.png) --></li>
-</ul>
-<p>我是使用 WSL 安裝，如果想使用 Windows 可以參考以下文件: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-tw/windows/dev-environment/javascript/nodejs-on-windows">在 Windows 上安裝 Node.js</a></p>
-<blockquote>
-<p>WSL 的指令實際上也是參考 Windows 文件: <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-tw/windows/dev-environment/javascript/nodejs-on-wsl">在 Windows 子系統 Linux 版 (WSL2) 上安裝 Node.js</a></p>
-</blockquote>
-<h2 id="安裝-git"><a href="#安裝-git" class="headerlink" title="安裝 git"></a>安裝 git</h2><p>Debian: <code>sudo apt install git-all</code></p>
-<p>Windows: <a target="_blank" rel="noopener" href="https://git-scm.com/download/win">Download for Windows</a></p>
-<ul>
-<li>官方載點</li>
-</ul>
-<h1 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h1><h2 id="安裝-Hexo"><a href="#安裝-Hexo" class="headerlink" title="安裝 Hexo"></a>安裝 Hexo</h2><p><code>npm install hexo-cli -g</code></p>
-<ul>
-<li><code>hexo version</code> 檢查是否安裝成功。<img src="https://i.imgur.com/vWO2mIw.png" alt="Imgur" style="display: block; margin-left: 0;"></li>
-</ul>
-<h2 id="初始化-Hexo"><a href="#初始化-Hexo" class="headerlink" title="初始化 Hexo"></a>初始化 Hexo</h2><ol>
-<li><code>hexo init &lt;資料夾名稱&gt;</code></li>
-<li><code>cd &lt;資料夾名稱&gt;</code></li>
-<li><code>hexo server</code><img src="https://i.imgur.com/3A3n4XC.png" alt="Imgur" style="display: block; margin-left: 0;"></li>
+        <p>開學後有點忙，沒時間更新文章，欠了很多篇 writeups，希望能慢慢補上。</p>
+<p>上週找了個 CTF 打，時間很短，只有四題，我只解了一題，另一題是結束後才解出。</p>
+<h1 id="masking-tape"><a href="#masking-tape" class="headerlink" title="masking tape"></a>masking tape</h1><p>丟到 ida 直接 decompile，這裡換判斷如果 <code>s2</code>, <code>v8</code> 是否和 <code>enc1</code>, <code>enc2</code> 相等:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( !<span class="built_in">strcmp</span>(enc1, s2) &amp;&amp; !<span class="built_in">strcmp</span>(&amp;enc2, v8) )</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">&quot;congratz&quot;</span>);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">&quot;wrong&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>加密邏輯在這:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">s = (<span class="type">char</span> *)argv[<span class="number">1</span>];</span><br><span class="line">size = <span class="built_in">strlen</span>(s) + <span class="number">1</span>;</span><br><span class="line">s2 = (<span class="type">char</span> *)<span class="built_in">malloc</span>(size);</span><br><span class="line">v8 = (<span class="type">char</span> *)<span class="built_in">malloc</span>(size);</span><br><span class="line"><span class="keyword">for</span> ( i = <span class="number">0LL</span>; i &lt; size; ++i )</span><br><span class="line">&#123;</span><br><span class="line">	s[i] = (s[i] &gt;&gt; <span class="number">5</span>) | (<span class="number">8</span> * s[i]);</span><br><span class="line">	<span class="keyword">if</span> ( (s[i] &amp; <span class="number">1</span>) != <span class="number">0</span> )</span><br><span class="line">	&#123;</span><br><span class="line">		s2[i] = s[i] &amp; <span class="number">0x33</span>;</span><br><span class="line">		v8[i] = s[i] &amp; <span class="number">0xCC</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		s2[i] = s[i] &amp; <span class="number">0xCC</span>;</span><br><span class="line">		v8[i] = s[i] &amp; <span class="number">0x33</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>s</code> 為執行時給的參數，<code>s2</code>, <code>v8</code> 為加密結果，邏輯很單純可以直接暴搜。</p>
+<h2 id="exploit"><a href="#exploit" class="headerlink" title="exploit"></a>exploit</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">enc1 = [<span class="number">0x08</span>, <span class="number">0x23</span>, <span class="number">0x03</span>, <span class="number">0x03</span>, <span class="number">0x13</span>, <span class="number">0x03</span>, <span class="number">0x13</span>, <span class="number">0x03</span>, <span class="number">0x01</span>, <span class="number">0x23</span>, <span class="number">0x31</span>, <span class="number">0x13</span>, <span class="number">0x11</span>, <span class="number">0xC8</span>, <span class="number">0x03</span>, <span class="number">0xC8</span>, <span class="number">0x03</span>, <span class="number">0x13</span>, <span class="number">0x01</span>, <span class="number">0xC8</span>, <span class="number">0x13</span>, <span class="number">0x13</span>, <span class="number">0x03</span>, <span class="number">0x13</span>, <span class="number">0x13</span>, <span class="number">0x11</span>, <span class="number">0x13</span>, <span class="number">0x23</span>]</span><br><span class="line">enc2 = [<span class="number">0x02</span>, <span class="number">0x40</span>, <span class="number">0x80</span>, <span class="number">0x08</span>, <span class="number">0x08</span>, <span class="number">0x08</span>, <span class="number">0xC8</span>, <span class="number">0xC8</span>, <span class="number">0x80</span>, <span class="number">0x88</span>, <span class="number">0x08</span>, <span class="number">0x80</span>, <span class="number">0x88</span>, <span class="number">0x32</span>, <span class="number">0x08</span>, <span class="number">0x32</span>, <span class="number">0x80</span>, <span class="number">0x80</span>, <span class="number">0x80</span>, <span class="number">0x32</span>, <span class="number">0x08</span>, <span class="number">0x80</span>, <span class="number">0x08</span>, <span class="number">0x08</span>, <span class="number">0x48</span>, <span class="number">0x88</span>, <span class="number">0x80</span>, <span class="number">0xC8</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_s</span>(<span class="params">enc1, enc2</span>):</span><br><span class="line">    <span class="keyword">for</span> s <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">        s_rot = (s &gt;&gt; <span class="number">5</span>) | (<span class="number">8</span> * s)</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> s_rot &amp; <span class="number">1</span>:</span><br><span class="line">            s2 = s_rot &amp; <span class="number">0x33</span></span><br><span class="line">            v8 = s_rot &amp; <span class="number">0xCC</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            s2 = s_rot &amp; <span class="number">0xCC</span></span><br><span class="line">            v8 = s_rot &amp; <span class="number">0x33</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> s2 == enc1 <span class="keyword">and</span> v8 == enc2:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(enc1)):</span><br><span class="line">    possible_s = find_s(enc1[i], enc2[i])</span><br><span class="line">    </span><br><span class="line">    flag += <span class="built_in">chr</span>(possible_s)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alpaca&#123;y0u&#x27;r3_a_pr0_crack3r&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="hidden"><a href="#hidden" class="headerlink" title="*hidden"></a>*hidden</h1><p>這題關鍵在這:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> ( i = <span class="number">0LL</span>; i &lt; (n + <span class="number">3</span>) &gt;&gt; <span class="number">2</span>; ++i )</span><br><span class="line">	dest[i] = sub_1272(dest[i], v8);</span><br><span class="line"><span class="keyword">if</span> ( !<span class="built_in">memcmp</span>(dest, &amp;unk_4040, <span class="number">4</span> * qword_4020) )</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;congratz&quot;</span>);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;wrong&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><code>sub_1272</code> 會對 <code>dest</code> 做一些操作:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">__int64 __fastcall sub_1272(unsigned int a1, _DWORD *a2)</span><br><span class="line">&#123;</span><br><span class="line">	sub_124F((unsigned int)(__ROL4__(*a2, 5) + __ROR4__(a2[1], 3)));</span><br><span class="line">	sub_122C((unsigned int)(__ROR4__(a2[2], 3) - __ROL4__(a2[3], 5)));</span><br><span class="line">	sub_1209(a1);</span><br><span class="line">	*a2 ^= __ROR4__(0, 13);</span><br><span class="line">	a2[1] ^= __ROR4__(0, 15);</span><br><span class="line">	a2[2] ^= __ROL4__(0, 13);</span><br><span class="line">	a2[3] ^= __ROL4__(0, 11);</span><br><span class="line">	return 0LL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>靜態看我看不太懂，所以寫了一個 gdb script 用動態的方法去暴搜，觀察每一次 for 迴圈 <code>dest[i]</code> 是否等於 <code>unk_4040</code>。</p>
+<p>完成 script 具體而言要做幾件事:</p>
+<ol>
+<li>找 <code>if ( !memcmp(dest, &amp;unk_4040, 4 * qword_4020) )</code> 這裡的 address，並下斷點在 <code>call memcmp</code> 以前</li>
+<li>找 <code>dest</code> 的 address</li>
+<li>找 <code>unk_4040</code> 的 address</li>
+<li>比較 <code>dest</code> 是否等於 <code>unk_4040</code></li>
 </ol>
-<p>這樣就建立好預設的網頁了。<br><img src="https://i.imgur.com/Enkxunr.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
-<h2 id="選擇喜歡的主題"><a href="#選擇喜歡的主題" class="headerlink" title="選擇喜歡的主題"></a>選擇喜歡的主題</h2><p>可以去 <a target="_blank" rel="noopener" href="https://hexo.io/themes/">Hexo Themes</a> 找喜歡的主題，我是使用 Archer，我後面的示範也是用 Archer 來介紹。</p>
-<ul>
-<li>建議是挑選還有在維護的主題，比較不會有問題<blockquote>
-<p>喜歡簡潔的也可以選 NexT</p>
-</blockquote>
-</li>
-</ul>
-<p>挑選好主題後就可以去他們的 github 或是網站看下載方式。</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/fi3ework/hexo-theme-archer">hexo-theme-archer</a><blockquote>
-<p>主題設定的部分可以自己去看他們的 github 研究，不想看我寫的可以直接跳到 <a href="#github-pages">Github Pages</a></p>
-</blockquote>
-</li>
-</ul>
-<p>安裝 Archer: <code>git clone https://github.com/fi3ework/hexo-theme-archer.git themes/archer --depth=1</code></p>
-<ul>
-<li>主題會放在 <code>themes/archer</code></li>
-<li>必要 dependency: <code>npm install hexo-generator-json-content</code><ul>
-<li>沒有這個就沒辦法使用 sidebar index</li>
-</ul>
-</li>
-</ul>
-<h2 id="設定-config-yml"><a href="#設定-config-yml" class="headerlink" title="設定 _config.yml"></a>設定 _config.yml</h2><p><code>_config.yml</code> 主要是和 Hexo 有關的設定，<code>themes/archer/_config.yml</code> 則是和主題有關的設定。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">archer</span></span><br><span class="line"><span class="attr">jsonContent:</span></span><br><span class="line">  <span class="attr">meta:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">pages:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">posts:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">date:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">path:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">text:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">raw:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">content:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">slug:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">updated:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">comments:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">link:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">permalink:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">excerpt:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">categories:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">tags:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>改 theme 以及新增 jsonContent</li>
-</ul>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">skysoul1024</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">en</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>這部分就是一些網站設置，可以自己想要寫什麼</li>
-<li>author 會影響文章最後 copyright 的 Author</li>
-<li>language 會影響文章最後 copyright 模板的語言，選中文的話會是簡體中文<ul>
-<li><code>themes/archer/languages</code> 可以改元素對應的字</li>
-</ul>
-</li>
-</ul>
-<h2 id="設定-themes-archer-config-yml"><a href="#設定-themes-archer-config-yml" class="headerlink" title="設定 &#x2F;themes&#x2F;archer&#x2F;_config.yml"></a>設定 &#x2F;themes&#x2F;archer&#x2F;_config.yml</h2><p>這部分我會介紹我更動過的元素<br><code>avatar</code>: 大頭貼，路徑如果類似這樣 <code>/avatar/Misaka.png</code>，要把圖片放到 <code>themes/archer/source/avatar</code> 下面<br><code>social</code>: 這裡可以新增各種社交軟體的連結，會以圖片形式在網頁上呈現<br><code>SEO_title, SEO_keywords</code>: 不太懂，我設定的和 <code>_config.yml</code> 的 <code># Site</code> 那裡一樣<br><code>main_title</code>: 主畫面的標題<br><code>subtitle</code>: 標題下面的字<br><code>site_header_image</code>: 主畫面的背景圖，路徑邏輯和大頭貼一樣<br><code>post_header_image</code>: 文章內的背景圖<br><code>favicon</code>: 瀏覽器分頁上面的那個小小的圖片<br><code>copyright</code>: 要不要在文章下面出現作者, 發布日期, license 等等</p>
-<ul>
-<li>license 可以參考我的寫法<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">copyright:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># https://creativecommons.org/</span></span><br><span class="line">  <span class="attr">license:</span> <span class="string">&lt;a</span> <span class="string">rel=&quot;license&quot;</span> <span class="string">href=&quot;https://creativecommons.org/licenses/by-nc/4.0/&quot;&gt;&lt;/a&gt;This</span> <span class="string">article</span> <span class="string">is</span> <span class="string">licensed</span> <span class="string">under&lt;a</span> <span class="string">rel=&quot;license&quot;</span> <span class="string">href=&quot;https://creativecommons.org/licenses/by-nc/4.0/&quot;&gt;</span> <span class="string">CC</span> <span class="string">BY-NC</span> <span class="number">4.0</span><span class="string">&lt;/a&gt;</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>如果不知道 license 要用哪一個可以去 <a target="_blank" rel="noopener" href="https://chooser-beta.creativecommons.org/">LICENSE CHOOSER</a>，回答幾個問題他會推薦你適合的 license</p>
-</blockquote>
-</li>
-</ul>
-<h1 id="Github-Pages"><a href="#Github-Pages" class="headerlink" title="Github Pages"></a>Github Pages</h1><h2 id="建立-Repository"><a href="#建立-Repository" class="headerlink" title="建立 Repository"></a>建立 Repository</h2><p>如果沒有 Github 的帳號先註冊一個。</p>
-<p>名稱取 username.github.io，然後要設定為 public。<br><img src="https://i.imgur.com/oIdkaMq.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
-<ul>
-<li>example.github.io 為範例，我的話正確是寫 skysoul1024.github.io</li>
-</ul>
-<h2 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy"></a>Deploy</h2><ol>
-<li>先安裝 <code>npm install hexo-deployer-git --save</code></li>
-<li>修改 _config.yml<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:username/username.github.io.git</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>repo: 點擊 github 頁面的 Code，選 SSH <img src="https://i.imgur.com/DhoocpX.png" alt="Imgur" style="display: block; margin-left: 0;"><blockquote>
-<p>不會設定 SSH key 的可以參考 <a target="_blank" rel="noopener" href="https://hackmd.io/@sysprog/gnu-linux-dev/https%3A%2F%2Fhackmd.io%2F%40sysprog%2Fgit-with-github#SSH-key-%E7%94%A2%E7%94%9F%E7%9A%84%E6%96%B9%E6%B3%95">Git 教學和 GitHub 設定指引</a></p>
-</blockquote>
-</li>
-<li>branch: 現在預設應該是 main? <img src="https://i.imgur.com/Sa2JnBK.png" alt="Imgur" style="display: block; margin-left: 0;"></li>
-</ul>
-<ol start="3">
-<li>最後<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-這樣就完成布署了!</li>
-</ol>
-<ul>
-<li>如果出現 <code>You should configure deployment settings in _config.yml first!</code> 代表 <code>config.yml</code> 有格式錯誤，可能是沒有縮排、元素名稱打錯之類的。<blockquote>
-<p>記得將 <code>_config.yml</code> 的 url 改成 username.github.io <img src="https://i.imgur.com/b0j5Kr2.png" alt="Imgur" style="display: block; margin-left: 0;"><br>如果以上設定都沒有問題且成功 deploy，但瀏覽網站沒有正確解析的話可以先等個幾分鐘再去瀏覽。</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="發表新文章"><a href="#發表新文章" class="headerlink" title="發表新文章"></a>發表新文章</h2><p><code>hexo new [layout] &lt;文章標題&gt;</code></p>
-<ul>
-<li>layout: 可以根據 scaffolds 中的模板建立對應的格式。預設 layout 在 <code>_config.yml</code> 的 default_layout 設定。</li>
-<li>接著就可以到 <code>source/_posts/</code> 編輯文章</li>
-</ul>
-<p>如果想新增 About Me: <code>hexo new page &quot;about&quot;</code></p>
-<ul>
-<li>就可以在 <code>source/about/index.md</code> 修改自己的 about<blockquote>
-<p>注意: <code>source/about/index.md</code> 中的 <code>layout: about</code> 不可修改</p>
-</blockquote>
-</li>
-</ul>
-<p>重新 deploy 就可以在自己的網站上看到新文章了。</p>
-<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>會萌生架設自己的 Blog 的想法是因為我上周去參加 AIS3，有聽講師提到寫 Blog 除了分享技術，也是一個讓別人可以認識自己的方法。</p>
-<p>剛上研究所找指導教授時，我現在的老師問我：「你的特長是什麼?」當時我是直接被問倒，除了不自信外，我想我的表達能力也有所欠缺。</p>
-<p>希望能藉由撰寫 Blog 訓練自己並且好好認識自己。</p>
-<h3 id="相關文章"><a href="#相關文章" class="headerlink" title="相關文章"></a>相關文章</h3><p><a target="_blank" rel="noopener" href="https://israynotarray.com/vscode/20190519/2164825737/">VSCode 上直接黏貼上傳圖片到 Imgur</a> -&gt; 增加撰寫效率<br><a target="_blank" rel="noopener" href="https://github.com/fi3ework/hexo-theme-archer/wiki/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E7%AB%A0%E5%9C%A8%E9%A6%96%E9%A1%B5%E7%9A%84%E6%91%98%E8%A6%81">archer 摘要</a> -&gt; 改善摘要，讓主畫面不要太亂<br><a target="_blank" rel="noopener" href="https://blog.kyomind.tw/hexo-blog-reply/">Hexo 新增 utterances 留言板與方案選擇思路</a> -&gt; 新增留言區</p>
+<h2 id="exploit-1"><a href="#exploit-1" class="headerlink" title="exploit"></a>exploit</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gdb</span><br><span class="line"></span><br><span class="line">known_prefix = <span class="string">b&quot;Alpaca&#123;&quot;</span></span><br><span class="line">charset = <span class="string">b&#x27;_&#123;&#125;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%,.:;&lt;=&gt;?@&#x27;</span></span><br><span class="line">flag = known_prefix</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BruteForceCommand</span>(gdb.Command):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(<span class="string">&quot;bruteforce&quot;</span>, gdb.COMMAND_USER)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">invoke</span>(<span class="params">self, arg, from_tty</span>):</span><br><span class="line">        gdb.execute(<span class="string">&quot;starti&quot;</span>)</span><br><span class="line">        gdb.execute(<span class="string">&quot;break *0x55555555551c&quot;</span>) <span class="comment"># call memcmp</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">global</span> flag</span><br><span class="line">        </span><br><span class="line">        cnt = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> <span class="string">b&quot;&#125;&quot;</span> <span class="keyword">not</span> <span class="keyword">in</span> flag:</span><br><span class="line">            <span class="keyword">for</span> c <span class="keyword">in</span> charset:</span><br><span class="line">                test_input = (flag + <span class="built_in">bytes</span>([c])).decode()</span><br><span class="line">                </span><br><span class="line">                gdb.execute(<span class="string">f&#x27;set args <span class="subst">&#123;test_input&#125;</span>&#x27;</span>)</span><br><span class="line">                gdb.execute(<span class="string">&quot;run&quot;</span>)</span><br><span class="line"></span><br><span class="line">                dest_base = <span class="number">0x5555555592a0</span> + cnt</span><br><span class="line">                dest_value = gdb.parse_and_eval(<span class="string">f&quot;*(long long *)<span class="subst">&#123;dest_base&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">                unk_4040_base = <span class="number">0x555555558040</span> + cnt</span><br><span class="line">                unk_4040_value = gdb.parse_and_eval(<span class="string">f&quot;*(long long *)<span class="subst">&#123;unk_4040_base&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;[*] test_input: <span class="subst">&#123;test_input&#125;</span>&quot;</span>)</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;[*] dest: <span class="subst">&#123;dest_value&#125;</span>&quot;</span>)</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;[*] unk_4040: <span class="subst">&#123;unk_4040_value&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> dest_value == unk_4040_value:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;[+] The values match!&quot;</span>)</span><br><span class="line">                    flag += <span class="built_in">bytes</span>([c])</span><br><span class="line">                    cnt += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;[-] The values do not match.&quot;</span>)</span><br><span class="line"></span><br><span class="line">BruteForceCommand()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;[*] Brute force command registered. Use &#x27;bruteforce&#x27; to start.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alpaca&#123;th15_f145_1s_3xc3ssiv3ly_l3ngthy_but_th1s_1s_t0_3nsur3_th4t_1t_c4nn0t_b3_e4s1ly_s01v3d_us1ng_angr&#125;</span></span><br></pre></td></tr></table></figure>
 
     </article>
     <!-- license -->
         <div class="license-wrapper">
             <p>Author：<a href="https://skysoul1024.github.io">skysoul1024</a>
-            <p>Link：<a href="https://skysoul1024.github.io/2024/08/07/hexo-github-io/">https://skysoul1024.github.io/2024/08/07/hexo-github-io/</a>
-            <p>Publish date：<a href="https://skysoul1024.github.io/2024/08/07/hexo-github-io/">August 7th 2024, 12:09:58 am</a>
-            <p>Update date：<a href="https://skysoul1024.github.io/2024/08/07/hexo-github-io/">September 22nd 2024, 4:40:18 pm</a>
+            <p>Link：<a href="https://skysoul1024.github.io/2025/01/02/AlpacaHack-Round-8-Rev/">https://skysoul1024.github.io/2025/01/02/AlpacaHack-Round-8-Rev/</a>
+            <p>Publish date：<a href="https://skysoul1024.github.io/2025/01/02/AlpacaHack-Round-8-Rev/">January 2nd 2025, 2:37:55 am</a>
+            <p>Update date：<a href="https://skysoul1024.github.io/2025/01/02/AlpacaHack-Round-8-Rev/">January 2nd 2025, 2:45:40 am</a>
             <p>License：<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"></a>This article is licensed under<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"> CC BY-NC 4.0</a></p>
         </div>
     <!-- paginator -->
     <ul class="post-paginator">
         <li class="next">
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2024/09/23/IERAE-CTF-2024-Writeups/" title="IERAE CTF 2024 Writeups">
-                    <div class="nextTitle">IERAE CTF 2024 Writeups</div>
-                </a>
         </li>
         <li class="previous">
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2024/09/23/IERAE-CTF-2024-Writeups/" title="IERAE CTF 2024 Writeups">
+                    <div class="prevTitle">IERAE CTF 2024 Writeups</div>
+                </a>
         </li>
     </ul>
     <!-- comment -->
@@ -639,7 +538,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E4%BD%9C%E6%A5%AD"><span class="toc-number">1.</span> <span class="toc-text">前置作業</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-Node-js"><span class="toc-number">1.1.</span> <span class="toc-text">安裝 Node.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-git"><span class="toc-number">1.2.</span> <span class="toc-text">安裝 git</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo"><span class="toc-number">2.</span> <span class="toc-text">Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-Hexo"><span class="toc-number">2.1.</span> <span class="toc-text">安裝 Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-Hexo"><span class="toc-number">2.2.</span> <span class="toc-text">初始化 Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%B8%E6%93%87%E5%96%9C%E6%AD%A1%E7%9A%84%E4%B8%BB%E9%A1%8C"><span class="toc-number">2.3.</span> <span class="toc-text">選擇喜歡的主題</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A-config-yml"><span class="toc-number">2.4.</span> <span class="toc-text">設定 _config.yml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A-themes-archer-config-yml"><span class="toc-number">2.5.</span> <span class="toc-text">設定 &#x2F;themes&#x2F;archer&#x2F;_config.yml</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Github-Pages"><span class="toc-number">3.</span> <span class="toc-text">Github Pages</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B-Repository"><span class="toc-number">3.1.</span> <span class="toc-text">建立 Repository</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deploy"><span class="toc-number">3.2.</span> <span class="toc-text">Deploy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BC%E8%A1%A8%E6%96%B0%E6%96%87%E7%AB%A0"><span class="toc-number">3.3.</span> <span class="toc-text">發表新文章</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">4.</span> <span class="toc-text">結語</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="toc-number">4.0.1.</span> <span class="toc-text">相關文章</span></a></li></ol></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#masking-tape"><span class="toc-number">1.</span> <span class="toc-text">masking tape</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#exploit"><span class="toc-number">1.1.</span> <span class="toc-text">exploit</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#hidden"><span class="toc-number">2.</span> <span class="toc-text">*hidden</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#exploit-1"><span class="toc-number">2.1.</span> <span class="toc-text">exploit</span></a></li></ol></li></ol>
             </div>
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">

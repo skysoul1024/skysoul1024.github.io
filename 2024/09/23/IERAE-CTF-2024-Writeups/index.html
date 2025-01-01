@@ -10,18 +10,18 @@
     <meta name="copyright" content="skysoul1024">
         <meta name="keywords" content="ctf,pwn,逆向,reverse,cybersecurity,hacking,skysoul1024,devilcat">
     <meta name="description" content="分享自己學習資安的一些東西">
-    <meta name="description" content="最近和實驗室的學長姐們組了一個 CTF 隊伍 superzoo，也是我第一次主動和別人組隊。">
+    <meta name="description" content="最近和實驗室的學長姐們組隊打的 CTF，也是我第一次主動和別人組隊。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IERAE CTF 2024 Writeups">
 <meta property="og:url" content="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/index.html">
 <meta property="og:site_name" content="skysoul1024&#39;s blog">
-<meta property="og:description" content="最近和實驗室的學長姐們組了一個 CTF 隊伍 superzoo，也是我第一次主動和別人組隊。">
+<meta property="og:description" content="最近和實驗室的學長姐們組隊打的 CTF，也是我第一次主動和別人組隊。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/yqSrwfV.png">
 <meta property="og:image" content="https://i.imgur.com/7eHBRzO.png">
 <meta property="og:image" content="https://i.imgur.com/oOFYXnr.png">
 <meta property="article:published_time" content="2024-09-23T08:58:02.000Z">
-<meta property="article:modified_time" content="2024-09-23T18:15:59.533Z">
+<meta property="article:modified_time" content="2025-01-01T18:35:03.876Z">
 <meta property="article:author" content="skysoul1024">
 <meta property="article:tag" content="Pwn, Reverse, Writeups">
 <meta name="twitter:card" content="summary">
@@ -444,8 +444,7 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p>最近和實驗室的學長姐們組了一個 CTF 隊伍 <code>superzoo</code>，也是我第一次主動和別人組隊。</p>
-<p>這個 CTF 是我們第一個完賽的比賽，最終名次為 30&#x2F;224，是我自己打比賽以來最好的一次成績，隊友都超棒的！</p>
+        <p>最近和實驗室的學長姐們組隊打的 CTF，也是我第一次主動和別人組隊。</p>
 <p>我寫出來的題目主要是 pwn 和 rev，以及一題 misc。</p>
 <h1 id="pwn-This-is-warmup"><a href="#pwn-This-is-warmup" class="headerlink" title="[pwn] This is warmup"></a>[pwn] This is warmup</h1><h2 id="Recon"><a href="#Recon" class="headerlink" title="Recon"></a>Recon</h2><p>題目有給 source code，觸發 <code>SIGSEGV</code> 就能拿到 FLAG。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// If you cause SEGV, then you will get flag</span></span><br><span class="line">signal(SIGSEGV, win);</span><br><span class="line">setbuf(<span class="built_in">stdout</span>, <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
@@ -527,12 +526,16 @@
             <p>Author：<a href="https://skysoul1024.github.io">skysoul1024</a>
             <p>Link：<a href="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/</a>
             <p>Publish date：<a href="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">September 23rd 2024, 4:58:02 pm</a>
-            <p>Update date：<a href="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">September 24th 2024, 2:15:59 am</a>
+            <p>Update date：<a href="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">January 2nd 2025, 2:35:03 am</a>
             <p>License：<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"></a>This article is licensed under<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"> CC BY-NC 4.0</a></p>
         </div>
     <!-- paginator -->
     <ul class="post-paginator">
         <li class="next">
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2025/01/02/AlpacaHack-Round-8-Rev/" title="AlpacaHack Round 8 (Rev) Writeups">
+                    <div class="nextTitle">AlpacaHack Round 8 (Rev) Writeups</div>
+                </a>
         </li>
         <li class="previous">
                 <div class="prevSlogan">Previous Post</div>
@@ -606,13 +609,21 @@
     <!-- 在 ejs 中将 archive 按照时间排序 -->
         
         
+        
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 2
+        Total : 3
         </div>
         <!-- search  -->
     </div>
     <div class="post-archive">
+            <div class="archive-year"> 2025 </div>
+            <ul class="year-list">
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span>
+            <a class="archive-post-title" href="/2025/01/02/AlpacaHack-Round-8-Rev/">AlpacaHack Round 8 (Rev) Writeups</a>
+        </li>
+                </ul>
             <div class="archive-year"> 2024 </div>
             <ul class="year-list">
         <li class="archive-post-item">
@@ -629,6 +640,10 @@
 
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
+            <span class="sidebar-tag-name" data-tags="rev">
+                <span class="iconfont-archer">&#xe606;</span>
+                rev
+            </span>
             <span class="sidebar-tag-name" data-tags="Pwn, Reverse, Writeups">
                 <span class="iconfont-archer">&#xe606;</span>
                 Pwn, Reverse, Writeups
