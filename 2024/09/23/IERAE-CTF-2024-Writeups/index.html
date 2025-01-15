@@ -10,23 +10,23 @@
     <meta name="copyright" content="skysoul1024">
         <meta name="keywords" content="ctf,pwn,逆向,reverse,cybersecurity,hacking,skysoul1024,devilcat,kalakala">
     <meta name="description" content="分享自己學習資安的一些東西">
-    <meta name="description" content="最近和實驗室的學長姐們組隊打的 CTF，也是我第一次主動和別人組隊。">
+    <meta name="description" content=".img-left {     display: block;     margin-right: 0; }   最近和實驗室的學長姐們組隊打的 CTF，也是我第一次主動和別人組隊。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IERAE CTF 2024 Writeups">
 <meta property="og:url" content="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/index.html">
 <meta property="og:site_name" content="skysoul1024&#39;s blog">
-<meta property="og:description" content="最近和實驗室的學長姐們組隊打的 CTF，也是我第一次主動和別人組隊。">
+<meta property="og:description" content=".img-left {     display: block;     margin-right: 0; }   最近和實驗室的學長姐們組隊打的 CTF，也是我第一次主動和別人組隊。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.imgur.com/yqSrwfV.png">
-<meta property="og:image" content="https://i.imgur.com/7eHBRzO.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">
+<meta property="og:image" content="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">
 <meta property="og:image" content="https://i.imgur.com/oOFYXnr.png">
 <meta property="article:published_time" content="2024-09-23T08:58:02.000Z">
-<meta property="article:modified_time" content="2025-01-01T19:24:58.942Z">
+<meta property="article:modified_time" content="2025-01-15T08:09:24.467Z">
 <meta property="article:author" content="skysoul1024">
 <meta property="article:tag" content="rev">
 <meta property="article:tag" content="pwn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.imgur.com/yqSrwfV.png">
+<meta name="twitter:image" content="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/avatar/kspksppain.png">
@@ -446,7 +446,14 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p>最近和實驗室的學長姐們組隊打的 CTF，也是我第一次主動和別人組隊。</p>
+        <style>
+.img-left {
+    display: block;
+    margin-right: 0;
+}
+</style>
+
+<p>最近和實驗室的學長姐們組隊打的 CTF，也是我第一次主動和別人組隊。</p>
 <p>我寫出來的題目主要是 pwn 和 rev，以及一題 misc。</p>
 <h1 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h1><h2 id="This-is-warmup"><a href="#This-is-warmup" class="headerlink" title="This is warmup"></a>This is warmup</h2><h3 id="Recon"><a href="#Recon" class="headerlink" title="Recon"></a>Recon</h3><p>題目有給 source code，觸發 <code>SIGSEGV</code> 就能拿到 FLAG。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// If you cause SEGV, then you will get flag</span></span><br><span class="line">signal(SIGSEGV, win);</span><br><span class="line">setbuf(<span class="built_in">stdout</span>, <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
@@ -504,8 +511,8 @@
 <p>那麼只要去 container 中找到 pipe, FIFO, socket 的檔案，然後用他們 create buffer 就能成功取得 size &#x3D; -1 的 buffer。</p>
 <p>最後我是選擇 <code>/var/run</code> 和 <code>/bin/bash</code>，然後 <code>/bin/bash</code> 覆蓋到 <code>/var/run</code>。</p>
 <p>FLAG: <code>IERAE&#123;7h3_f1rs7_s73p_7o_b3_4_pwn3r_51a7806b&#125;</code></p>
-<h1 id="rev"><a href="#rev" class="headerlink" title="rev"></a>rev</h1><h2 id="Assignment"><a href="#Assignment" class="headerlink" title="Assignment"></a>Assignment</h2><p>使用 ida 分析，<code>main</code> 把 FLAG 亂排:<br><img src="https://i.imgur.com/yqSrwfV.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
-<p>直接 decompile，ida 會幫忙把 flag 排好:<br><img src="https://i.imgur.com/7eHBRzO.png" alt="Imgur" style="display: block; margin-left: 0;"></p>
+<h1 id="rev"><a href="#rev" class="headerlink" title="rev"></a>rev</h1><h2 id="Assignment"><a href="#Assignment" class="headerlink" title="Assignment"></a>Assignment</h2><p>使用 ida 分析，<code>main</code> 把 FLAG 亂排:<br><img src="/2024/09/23/IERAE-CTF-2024-Writeups/"  alt="Imgur" style="display: block; margin-left: 0;"></p>
+<p>直接 decompile，ida 會幫忙把 flag 排好:<br><img src="/2024/09/23/IERAE-CTF-2024-Writeups/"  alt="Imgur" style="display: block; margin-left: 0;"></p>
 <p>FLAG: <code>IERAE&#123;s0me_r4nd0m_str1ng_5a9354c&#125;</code></p>
 <h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="Luz-Da-Lua"><a href="#Luz-Da-Lua" class="headerlink" title="Luz Da Lua"></a>Luz Da Lua</h2><h3 id="Recon-2"><a href="#Recon-2" class="headerlink" title="Recon"></a>Recon</h3><p>題目給一個 .luac 檔案，找一個 Lua Decompiler 把給的檔案丟進去。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">-- filename: @/mnt/LuzDaLua.lua</span><br><span class="line">-- version: lua54</span><br><span class="line">-- line: [0, 0] id: 0</span><br><span class="line">io.write(&quot;Input &gt; &quot;)</span><br><span class="line">input = io.read(&quot;*l&quot;)</span><br><span class="line">if string.len(input) ~= 28 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 1) ~ 232 ~= 161 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 2) ~ 110 ~= 43 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 3) ~ 178 ~= 224 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 4) ~ 172 ~= 237 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 5) ~ 212 ~= 145 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 6) ~ 25 ~= 98 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 7) ~ 53 ~= 121 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 8) ~ 63 ~= 74 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 9) ~ 135 ~= 230 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 10) ~ 92 ~= 3 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 11) ~ 38 ~= 23 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 12) ~ 250 ~= 137 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 13) ~ 216 ~= 135 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 14) ~ 5 ~= 86 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 15) ~ 69 ~= 117 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 16) ~ 226 ~= 189 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 17) ~ 137 ~= 186 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 18) ~ 148 ~= 240 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 19) ~ 64 ~= 53 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 20) ~ 130 ~= 225 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 21) ~ 241 ~= 197 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 22) ~ 151 ~= 227 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 23) ~ 203 ~= 250 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 24) ~ 179 ~= 220 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 25) ~ 216 ~= 182 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 26) ~ 101 ~= 4 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 27) ~ 238 ~= 130 then</span><br><span class="line">  goto label_301</span><br><span class="line">elseif string.byte(input, 28) ~ 61 ~= 64 then</span><br><span class="line">  goto label_301</span><br><span class="line">else</span><br><span class="line">  print(&quot;Correct&quot;)</span><br><span class="line">end</span><br><span class="line">-- warn: not visited block [59]</span><br><span class="line">-- block#59:</span><br><span class="line">-- _ENV.print(&quot;Wrong&quot;)</span><br></pre></td></tr></table></figure>
@@ -528,7 +535,7 @@
             <p>Author：<a href="https://skysoul1024.github.io">skysoul1024</a>
             <p>Link：<a href="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/</a>
             <p>Publish date：<a href="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">September 23rd 2024, 4:58:02 pm</a>
-            <p>Update date：<a href="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">January 2nd 2025, 3:24:58 am</a>
+            <p>Update date：<a href="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">January 15th 2025, 4:09:24 pm</a>
             <p>License：<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"></a>This article is licensed under<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"> CC BY-NC 4.0</a></p>
         </div>
     <!-- paginator -->
@@ -612,15 +619,20 @@
         
         
         
+        
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 3
+        Total : 4
         </div>
         <!-- search  -->
     </div>
     <div class="post-archive">
             <div class="archive-year"> 2025 </div>
             <ul class="year-list">
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span>
+            <a class="archive-post-title" href="/2025/01/15/TSG-CTF-2024-Writeups/">TSG CTF 2024 Writeups</a>
+        </li>
         <li class="archive-post-item">
             <span class="archive-post-date">01/02</span>
             <a class="archive-post-title" href="/2025/01/02/AlpacaHack-Round-8-Rev/">AlpacaHack Round 8 (Rev) Writeups</a>
@@ -649,6 +661,10 @@
             <span class="sidebar-tag-name" data-tags="pwn">
                 <span class="iconfont-archer">&#xe606;</span>
                 pwn
+            </span>
+            <span class="sidebar-tag-name" data-tags="misc">
+                <span class="iconfont-archer">&#xe606;</span>
+                misc
             </span>
             <span class="sidebar-tag-name" data-tags="Hexo">
                 <span class="iconfont-archer">&#xe606;</span>
