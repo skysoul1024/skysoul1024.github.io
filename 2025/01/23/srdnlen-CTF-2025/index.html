@@ -10,18 +10,33 @@
     <meta name="copyright" content="skysoul1024">
         <meta name="keywords" content="ctf,pwn,逆向,reverse,cybersecurity,hacking,skysoul1024,devilcat,kalakala">
     <meta name="description" content="分享自己學習資安的一些東西">
-    <meta name="description" content="分享自己學習資安的一些東西">
+    <meta name="description" content="rev">
 <meta property="og:type" content="article">
 <meta property="og:title" content="srdnlen-CTF-2025">
 <meta property="og:url" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/index.html">
 <meta property="og:site_name" content="skysoul1024&#39;s blog">
-<meta property="og:description" content="分享自己學習資安的一些東西">
+<meta property="og:description" content="rev">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/a2f731f184e2519ecee137bea6850a0e.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/2f8a3b01aca1e67dab5b99be863f9337.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/40f3e7c421996e39675987b152e4d636.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/e2f7f1eb3e030bdb512167d31724f23b.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/cb50ec1e7e27869c4e0483618b3d02fc.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/a3b7859534c392d389b2ac62faf50cf6.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/726ef6a5f9abc3ad309744a1819f623b.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/874254f67ab7d6982b30b3c74e82852e.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/9f8124802f1bda32ab8312714f801f1b.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/3cb123acaf1f77ad8f2710becb027253.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/a6460962331e033afa03a1c487bb207b.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/d475a75992491b9f8917e1980b48160e.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/024655e09c24c6c07fff18b9d366bb82.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/d8ccb0ba0cfdd4ec01ed0a8a3fd4431d.png">
 <meta property="article:published_time" content="2025-01-22T18:52:17.000Z">
-<meta property="article:modified_time" content="2025-01-22T19:03:24.922Z">
+<meta property="article:modified_time" content="2025-01-23T14:02:49.565Z">
 <meta property="article:author" content="skysoul1024">
 <meta property="article:tag" content="cybersecurity, CTF, hacking, skysoul1024, pwn, reverse, 逆向">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/a2f731f184e2519ecee137bea6850a0e.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/avatar/kspksppain.png">
@@ -286,7 +301,7 @@
 
                 <!-- 文章字数统计 -->
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">0</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">541</span>Reading time: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 <div class="post-intro-meta">
                     <!-- 撰写日期 -->
@@ -439,14 +454,77 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        
+        <h1 id="rev"><a href="#rev" class="headerlink" title="rev"></a>rev</h1><h2 id="UnityOs"><a href="#UnityOs" class="headerlink" title="UnityOs"></a>UnityOs</h2><p><code>UnityOS.exe</code> 執行起來長這樣:</p>
+<img src="/2025/01/23/srdnlen-CTF-2025/a2f731f184e2519ecee137bea6850a0e.png" class="" title="a2f731f184e2519ecee137bea6850a0e.png">
+
+<p><code>Console</code> 用 <code>help</code> 可以看到哪些可用指令:</p>
+<img src="/2025/01/23/srdnlen-CTF-2025/2f8a3b01aca1e67dab5b99be863f9337.png" class="" title="2f8a3b01aca1e67dab5b99be863f9337.png">
+
+<p><code>MiniGame</code> 是一個射小怪會增加分數的遊戲。</p>
+<p><code>???</code> 執行會說:</p>
+<img src="/2025/01/23/srdnlen-CTF-2025/40f3e7c421996e39675987b152e4d636.png" class="" title="40f3e7c421996e39675987b152e4d636.png">
+
+<p>看起來就超可疑，試著在 <code>Console</code> 使用 <code>sudo</code>:</p>
+<img src="/2025/01/23/srdnlen-CTF-2025/e2f7f1eb3e030bdb512167d31724f23b.png" class="" title="e2f7f1eb3e030bdb512167d31724f23b.png">
+
+<p>那麼現在就要去找 <code>sudo</code> 的 password。</p>
+<p>一般 Unity 的主邏輯會在 <code>Assembly-CSarp.dll</code>，用 dnSpy 打開來逆向會發現程式被混淆過。</p>
+<p>但把 function 都點開來看一看會發現這裡有 <code>Console</code> 的邏輯:</p>
+<img src="/2025/01/23/srdnlen-CTF-2025/cb50ec1e7e27869c4e0483618b3d02fc.png" class="" title="cb50ec1e7e27869c4e0483618b3d02fc.png">
+<img src="/2025/01/23/srdnlen-CTF-2025/a3b7859534c392d389b2ac62faf50cf6.png" class="" title="a3b7859534c392d389b2ac62faf50cf6.png">
+
+<p>順著 <code>갖</code> 一路點下去就能在 <code>System.Sudo.dll</code> 的 <code>MustBeSafeToSaveHere</code> 找到 <code>sudo</code> 的密碼:</p>
+<img src="/2025/01/23/srdnlen-CTF-2025/726ef6a5f9abc3ad309744a1819f623b.png" class="" title="726ef6a5f9abc3ad309744a1819f623b.png">
+
+<p>回去 <code>sudo</code>:</p>
+<img src="/2025/01/23/srdnlen-CTF-2025/874254f67ab7d6982b30b3c74e82852e.png" class="" title="874254f67ab7d6982b30b3c74e82852e.png">
+
+<img src="/2025/01/23/srdnlen-CTF-2025/9f8124802f1bda32ab8312714f801f1b.png" class="" title="9f8124802f1bda32ab8312714f801f1b.png">
+
+<h3 id="Another-Solution"><a href="#Another-Solution" class="headerlink" title="Another Solution"></a>Another Solution</h3><p>看了其他人的 writeup 發現可以直接用 <code>grep -ra &quot;srdnlen&quot;</code> 就能搜到 flag QQ:</p>
+<img src="/2025/01/23/srdnlen-CTF-2025/3cb123acaf1f77ad8f2710becb027253.png" class="" title="3cb123acaf1f77ad8f2710becb027253.png">
+<blockquote>
+<p><del>下次拿到一包東西都先 grep</del></p>
+</blockquote>
+<h2 id="It’s-not-what-it-seems"><a href="#It’s-not-what-it-seems" class="headerlink" title="It’s not what it seems"></a>It’s not what it seems</h2><p>這題 <code>main</code> 乍看之下會做 AES 加密，但實際上在 <code>_start</code> 的地方會做怪怪的事情:</p>
+<img src="/2025/01/23/srdnlen-CTF-2025/a6460962331e033afa03a1c487bb207b.png" class="" title="a6460962331e033afa03a1c487bb207b.png">
+<ul>
+<li><code>keys</code> 在 offset 0x120 才開始有非零的值</li>
+<li>所以這段應該是會改 <code>main + 0x120</code> 後的 code</li>
+</ul>
+<p>用動態去看 <code>main + 0x120</code> 這裡的 code:</p>
+<img src="/2025/01/23/srdnlen-CTF-2025/d475a75992491b9f8917e1980b48160e.png" class="" title="d475a75992491b9f8917e1980b48160e.png">
+<ul>
+<li>這裡的邏輯是 <code>xor, cl, al</code> 後比較 cl 是否等於 0x40，一樣就繼續 xor</li>
+<li>而 <code>rsi</code> 和 <code>rdi</code> 為:  <img src="/2025/01/23/srdnlen-CTF-2025/024655e09c24c6c07fff18b9d366bb82.png" class="" title="024655e09c24c6c07fff18b9d366bb82.png">
+<ul>
+<li><code>rdi</code> 為使用者輸入</li>
+</ul>
+</li>
+</ul>
+<p>找到 <code>rsi</code> xor 為 0x40 的 input 就是 flag。</p>
+<h3 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">enc = [<span class="number">0x33</span>, <span class="number">0x32</span>, <span class="number">0x24</span>, <span class="number">0x2E</span>, <span class="number">0x2C</span>, <span class="number">0x25</span>, <span class="number">0x2E</span>, <span class="number">0x3B</span>, <span class="number">0x2E</span>, <span class="number">0x73</span>, <span class="number">0x36</span>, <span class="number">0x73</span>, <span class="number">0x32</span>, <span class="number">0x1F</span>, <span class="number">0x34</span>, <span class="number">0x32</span>, <span class="number">0x35</span>, <span class="number">0x75</span>, <span class="number">0x34</span>, <span class="number">0x1F</span>, <span class="number">0x14</span>, <span class="number">0x28</span>, <span class="number">0x73</span>, <span class="number">0x1F</span>, <span class="number">0x2D</span>, <span class="number">0x74</span>, <span class="number">0x71</span>, <span class="number">0x2E</span>, <span class="number">0x1F</span>, <span class="number">0x26</span>, <span class="number">0x35</span>, <span class="number">0x2E</span>, <span class="number">0x23</span>, <span class="number">0x34</span>, <span class="number">0x71</span>, <span class="number">0x70</span>, <span class="number">0x2E</span>, <span class="number">0x3D</span>]</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> enc:</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">        <span class="keyword">if</span> (j ^ i) == <span class="number">0x40</span>:</span><br><span class="line">            flag += <span class="built_in">chr</span>(j)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+
+<p>FLAG: <code>srdnlen&#123;n3v3r_tru5t_Th3_m41n_funct10n&#125;</code></p>
+<h2 id="Anodic-Music"><a href="#Anodic-Music" class="headerlink" title="Anodic Music"></a>Anodic Music</h2><p>這題主要邏輯在這:</p>
+<img src="/2025/01/23/srdnlen-CTF-2025/d8ccb0ba0cfdd4ec01ed0a8a3fd4431d.png" class="" title="d8ccb0ba0cfdd4ec01ed0a8a3fd4431d.png">
+<ul>
+<li><code>md5String</code> 就是拿 <code>v8</code> 去生 md5</li>
+<li>在 <code>lookup_bank</code> 會去檢查生出的 md5 是否存在在 <code>hardcore.bnk</code></li>
+<li>是一個 for 迴圈，也就是說 flag 是慢慢長出來的，每一輪都要滿足 md5 在 <code>hardcore.bnk</code> 中</li>
+</ul>
+<p>寫一個腳本去暴搜照理說就可以找到，但實際上 <code>hardcore.bnk</code> 裡面有很多假的 md5，錯誤的字串產的 md5 也有機會在 <code>hardcore.bnk</code> 裡面找到，因此要用 DFS 來解。</p>
+<h3 id="Exploit-1"><a href="#Exploit-1" class="headerlink" title="Exploit"></a>Exploit</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line">printable = string.printable</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;hardcore.bnk&quot;</span>, <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    data = f.read()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">flag</span>):</span><br><span class="line">    <span class="built_in">print</span>(flag)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(flag) == <span class="number">62</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> printable:</span><br><span class="line">        <span class="keyword">if</span> hashlib.md5((flag + c).encode()).digest() <span class="keyword">not</span> <span class="keyword">in</span> data:</span><br><span class="line">            <span class="keyword">if</span> dfs(flag + c):</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line">dfs(flag)</span><br></pre></td></tr></table></figure>
+
+<p>FLAG: <code>srdnlen&#123;Mr_Evrart_is_helping_me_find_my_flag_af04993a13b8eecd&#125;</code></p>
+
     </article>
     <!-- license -->
         <div class="license-wrapper">
             <p>Author：<a href="https://skysoul1024.github.io">skysoul1024</a>
             <p>Link：<a href="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/">https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/</a>
             <p>Publish date：<a href="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/">January 23rd 2025, 2:52:17 am</a>
-            <p>Update date：<a href="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/">January 23rd 2025, 3:03:24 am</a>
+            <p>Update date：<a href="https://skysoul1024.github.io/2025/01/23/srdnlen-CTF-2025/">January 23rd 2025, 10:02:49 pm</a>
             <p>License：<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"></a>This article is licensed under<a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"> CC BY-NC 4.0</a></p>
         </div>
     <!-- paginator -->
@@ -511,7 +589,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#rev"><span class="toc-number">1.</span> <span class="toc-text">rev</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UnityOs"><span class="toc-number">1.1.</span> <span class="toc-text">UnityOs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Another-Solution"><span class="toc-number">1.1.1.</span> <span class="toc-text">Another Solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#It%E2%80%99s-not-what-it-seems"><span class="toc-number">1.2.</span> <span class="toc-text">It’s not what it seems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Exploit"><span class="toc-number">1.2.1.</span> <span class="toc-text">Exploit</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Anodic-Music"><span class="toc-number">1.3.</span> <span class="toc-text">Anodic Music</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Exploit-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">Exploit</span></a></li></ol></li></ol></li></ol>
             </div>
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
@@ -566,21 +644,21 @@
 
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
-            <span class="sidebar-tag-name" data-tags="rev">
-                <span class="iconfont-archer">&#xe606;</span>
-                rev
-            </span>
             <span class="sidebar-tag-name" data-tags="pwn">
                 <span class="iconfont-archer">&#xe606;</span>
                 pwn
             </span>
-            <span class="sidebar-tag-name" data-tags="misc">
+            <span class="sidebar-tag-name" data-tags="rev">
                 <span class="iconfont-archer">&#xe606;</span>
-                misc
+                rev
             </span>
             <span class="sidebar-tag-name" data-tags="Hexo">
                 <span class="iconfont-archer">&#xe606;</span>
                 Hexo
+            </span>
+            <span class="sidebar-tag-name" data-tags="misc">
+                <span class="iconfont-archer">&#xe606;</span>
+                misc
             </span>
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
