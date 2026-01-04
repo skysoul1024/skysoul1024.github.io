@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="本來想試試看漏洞分析或寫外掛，但時間有點緊迫，就選了自己比較擅長的逆向。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TeamT5 Security Camp 2026 筆試">
+<meta property="og:url" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/index.html">
+<meta property="og:site_name" content="kalakala">
+<meta property="og:description" content="本來想試試看漏洞分析或寫外掛，但時間有點緊迫，就選了自己比較擅長的逆向。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/6cf2d605099f05979630f3d96011cd78.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/074e8bd7df9579387daee90c91af8357.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/6316d1066fba3727a98ab09baa452ad7.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/d447b93985b664ab41747c15c098adc2.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/cf849d409ee697e13f494f75c5eb63c1.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/6078273cf5f7199860d1d3adb50d741e.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/126bce6fda4c239d522985a4a06f9570.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/e74d79759a695e588de1a55514e814a1.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/c0e18260dabcb17fa7d0f96db7ef2eb4.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/8ad172168dee0f48ba6a0c6f2d354c8d.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/1aa10a51e679aec2fac3d060167a7808.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/8a3053e5f26173a69138306e041742a9.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/dc8246cd63b2acb773cbac4d459d9077.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/e1ba5fd16c0170a94b23a83d0639b09a.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/0bebe0caadf88e7d22af47c256773580.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/7073a01e56778cc88114274e5762042c.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/ec2e475e07c7e4399f012f22639499ff.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/2ad11ce41772ebab8b9ede990b425853.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/891bb23fe14e3b32f3c46ac0ff39883d.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/3cc9a9e9343dd6758f709051a2abda3f.png">
+<meta property="article:published_time" content="2026-01-04T17:16:59.000Z">
+<meta property="article:modified_time" content="2026-01-04T17:41:01.810Z">
+<meta property="article:author" content="kalakala">
+<meta property="article:tag" content="reverse">
+<meta property="article:tag" content="malware-analysis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/6cf2d605099f05979630f3d96011cd78.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/terminal.svg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/terminal.svg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/terminal.svg">
+        
+      
+    
+    <!-- title -->
+    <title>TeamT5 Security Camp 2026 筆試</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/skysoul1024">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/01/23/srdnlen-CTF-2025/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&text=TeamT5 Security Camp 2026 筆試"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&title=TeamT5 Security Camp 2026 筆試"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&is_video=false&description=TeamT5 Security Camp 2026 筆試"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TeamT5 Security Camp 2026 筆試&body=Check out this article: https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&title=TeamT5 Security Camp 2026 筆試"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&title=TeamT5 Security Camp 2026 筆試"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&title=TeamT5 Security Camp 2026 筆試"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&title=TeamT5 Security Camp 2026 筆試"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&name=TeamT5 Security Camp 2026 筆試&description=&lt;p&gt;本來想試試看漏洞分析或寫外掛，但時間有點緊迫，就選了自己比較擅長的逆向。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&t=TeamT5 Security Camp 2026 筆試"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E7%9B%B8%E9%97%9C%E6%A8%A3%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">分析相關樣本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%97%E5%AE%B3%E8%80%85%E8%A7%B8%E7%99%BC%E6%83%A1%E6%84%8F%E7%A8%8B%E5%BC%8F%E7%9A%84%E6%96%B9%E5%BC%8F-%E8%BC%89%E5%85%A5%E6%B5%81%E7%A8%8B-%E8%AA%98%E7%99%BC%E6%96%B9%E5%BC%8F-%E5%8F%AF%E8%83%BD%E6%9C%89%E7%9A%84%E5%8A%A0%E8%A7%A3%E5%AF%86-%E7%AD%89%E7%AD%89"><span class="toc-number">1.1.</span> <span class="toc-text">受害者觸發惡意程式的方式 (載入流程&#x2F;誘發方式&#x2F;可能有的加解密&#x2F;等等)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%A1%E6%84%8F%E7%A8%8B%E5%BC%8F%E6%97%8F%E7%BE%A4"><span class="toc-number">1.2.</span> <span class="toc-text">惡意程式族群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A3%E6%9C%AC%E7%B7%A8%E8%AD%AF%E6%99%82%E9%96%93-%E6%8E%A8%E6%B8%AC%E6%94%BB%E6%93%8A%E6%99%82%E9%96%93"><span class="toc-number">1.3.</span> <span class="toc-text">樣本編譯時間 + 推測攻擊時間</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decoy-%E6%AA%94%E6%A1%88"><span class="toc-number">1.4.</span> <span class="toc-text">Decoy 檔案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C2"><span class="toc-number">1.5.</span> <span class="toc-text">C2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Persistence"><span class="toc-number">1.6.</span> <span class="toc-text">Persistence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E4%BD%A0%E8%AA%8D%E7%82%BA%E9%87%8D%E8%A6%81%E6%88%96%E8%80%85%E8%A6%BA%E5%BE%97%E6%9C%89%E7%94%A8%E7%9A%84%E8%B3%87%E8%A8%8A"><span class="toc-number">1.7.</span> <span class="toc-text">其他你認為重要或者覺得有用的資訊</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E5%8F%97%E5%AE%B3-%E6%94%BB%E6%93%8A%E8%80%85%E8%BA%AB%E5%88%86"><span class="toc-number">2.</span> <span class="toc-text">分析受害&#x2F;攻擊者身分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%97%E5%AE%B3%E5%9C%8B%E5%AE%B6"><span class="toc-number">2.1.</span> <span class="toc-text">受害國家</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E6%93%8A%E6%97%8F%E7%BE%A4"><span class="toc-number">2.2.</span> <span class="toc-text">攻擊族群</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%88%86%E9%A1%8C"><span class="toc-number">3.</span> <span class="toc-text">加分題</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Malware-obfuscation-techniques"><span class="toc-number">3.1.</span> <span class="toc-text">Malware obfuscation techniques</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Config-offset-decoding-method"><span class="toc-number">3.2.</span> <span class="toc-text">Config offset + decoding method</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">4.</span> <span class="toc-text">結語</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        TeamT5 Security Camp 2026 筆試
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">kalakala</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-01-04T17:16:59.000Z" class="dt-published" itemprop="datePublished">2026-01-05</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/T5Camp/">T5Camp</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/malware-analysis/" rel="tag">malware-analysis</a>, <a class="p-category" href="/tags/reverse/" rel="tag">reverse</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>本來想試試看漏洞分析或寫外掛，但時間有點緊迫，就選了自己比較擅長的逆向。</p>
+<h2 id="分析相關樣本"><a href="#分析相關樣本" class="headerlink" title="分析相關樣本"></a>分析相關樣本</h2><h3 id="受害者觸發惡意程式的方式-載入流程-誘發方式-可能有的加解密-等等"><a href="#受害者觸發惡意程式的方式-載入流程-誘發方式-可能有的加解密-等等" class="headerlink" title="受害者觸發惡意程式的方式 (載入流程&#x2F;誘發方式&#x2F;可能有的加解密&#x2F;等等)"></a>受害者觸發惡意程式的方式 (載入流程&#x2F;誘發方式&#x2F;可能有的加解密&#x2F;等等)</h3><p>解壓後看到一個 <code>.jse</code> 檔案，可能透過釣魚郵件的方式讓使用者解壓縮點擊執行，Windows 會把它當成 Javascript 執行。</p>
+<p>用編輯器看會發現是明文，但有些許混淆:</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/6cf2d605099f05979630f3d96011cd78.png" class="" title="6cf2d605099f05979630f3d96011cd78.png">
+<ul>
+<li>前幾個變數是大量的 base64，猜測是在做一個 decode malware 本體的動作</li>
+</ul>
+<p>稍微整理一下就變得很好懂:</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/074e8bd7df9579387daee90c91af8357.png" class="" title="074e8bd7df9579387daee90c91af8357.png">
+<ul>
+<li>相關所有檔案都會放在 <code>C:\ProgramData\</code> 下</li>
+<li><code>base64_2</code> decode 會存到 <code>System Safety Manager JD.pdf</code><ul>
+<li>並執行這個 pdf</li>
+</ul>
+</li>
+<li><code>base64_3</code> decode 則會存到 <code>3hsOE4s.JaBu</code></li>
+<li>之後執行 <code>powershell.exe -windowstyle hidden certutil -decode C:\ProgramData\3hsOE4s.JaBu C:\ProgramData\a2rqpns.u53Z</code><ul>
+<li>把 <code>3hsOE4s.JaBu</code> 再 decode 為 <code>a2rqpns.u53Z</code></li>
+</ul>
+</li>
+<li>最後跑 <code>powershell.exe -windowstyle hidden cmd /c cmd /c regsvr32.exe /s C:\ProgramData\a2rqpns.u53Z</code><ul>
+<li><code>a2rqpns.u53Z</code> 很大機率是 DLL，此為惡意程式主要邏輯</li>
+</ul>
+</li>
+</ul>
+<p>decode 後的 <code>System Safety Manager JD.pdf</code> 看起來就真的只是個 pdf:</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/6316d1066fba3727a98ab09baa452ad7.png" class="" title="6316d1066fba3727a98ab09baa452ad7.png">
+<ul>
+<li>使用的工具是 <code>PDFiD</code>，會檢查 pdf 是否包含 malicious feature</li>
+</ul>
+<p>Hex editor 打開 pdf 檢查:</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/d447b93985b664ab41747c15c098adc2.png" class="" title="d447b93985b664ab41747c15c098adc2.png">
+<ul>
+<li>magic number 為 <code>PDF</code></li>
+</ul>
+<h3 id="惡意程式族群"><a href="#惡意程式族群" class="headerlink" title="惡意程式族群"></a>惡意程式族群</h3><ul>
+<li><strong>Kimsuky</strong></li>
+</ul>
+<p>將 <code>a2rqpns.u53Z</code> 的 md5 <code>537806c02659a12c5b21efa51b2322c1</code> 拿去 VirusTotal 搜尋就會找到:</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/cf849d409ee697e13f494f75c5eb63c1.png" class="" title="cf849d409ee697e13f494f75c5eb63c1.png">
+<ul>
+<li>被多家廠商標示為 Kimsuky</li>
+</ul>
+<p>PDF 有韓語相關訊息:</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/6078273cf5f7199860d1d3adb50d741e.png" class="" title="6078273cf5f7199860d1d3adb50d741e.png">
+
+<h3 id="樣本編譯時間-推測攻擊時間"><a href="#樣本編譯時間-推測攻擊時間" class="headerlink" title="樣本編譯時間 + 推測攻擊時間"></a>樣本編譯時間 + 推測攻擊時間</h3><p>根據 PE Header 中的 <code>TimeDateStamp</code> 欄位，編譯時間為 2024-05-13 02:01:12 UTC。</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/126bce6fda4c239d522985a4a06f9570.png" class="" title="126bce6fda4c239d522985a4a06f9570.png">
+
+<p>根據 VirusTotal 的紀錄 First Seen In The Wild 2024-05-17 11:50:48 UTC，可以推測第一次攻擊介於這兩個時間之間。</p>
+<blockquote>
+<p><code>TimeDateStamp</code> 是可以更改的，也有可能在更早一前就出現並攻擊了。</p>
+</blockquote>
+<h3 id="Decoy-檔案"><a href="#Decoy-檔案" class="headerlink" title="Decoy 檔案"></a>Decoy 檔案</h3><p><code>System Safety Manager JD.pdf</code> 前面有分析過這看起來就只是個 pdf，用途應該是執行 <code>.jse</code> 後讓使用者誤以為只是打開一個 pdf。</p>
+<p>此 pdf 看起來為一份 General Dynamics Land Systems 的職缺說明文件。</p>
+<h3 id="C2"><a href="#C2" class="headerlink" title="C2"></a>C2</h3><p>相關 domain: <code>http://download.uberlingen.com/index.php</code></p>
+<p>C2 主要邏輯在 <code>sub_1800049C0</code>。</p>
+<p>首先嘗試看 C2 建立連線，失敗的話 sleep 五分鐘，再試一次，成功的話則進入收指令的環節:</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/e74d79759a695e588de1a55514e814a1.png" class="" title="e74d79759a695e588de1a55514e814a1.png">
+
+<p>C2 指令如下:</p>
+<ul>
+<li><code>d</code>: 使用 <code>cmd.exe</code> 執行命令並回傳結果</li>
+<li><code>e</code>: 從 C2 下載檔案</li>
+<li><code>f</code>: 上傳檔案到 C2</li>
+<li><code>g</code>: <code>CreateProcessW</code></li>
+<li><code>i</code>: 刪除檔案</li>
+<li><code>j</code>: 截圖上傳到 C2</li>
+<li><code>k</code>: 像 C2 傳當前 config</li>
+<li><code>l</code>: 更新 config</li>
+<li><code>m</code>: 連線指定的 host, port</li>
+<li><code>n</code>: 睡一個指定時間</li>
+<li><code>o</code>: 把來源檔的 timestamp 複製到目標檔</li>
+<li><code>p</code>: self deletion</li>
+<li><code>r</code>: 類似於 <code>d</code></li>
+</ul>
+<p>self deletion 流程:</p>
+<ol>
+<li><code>GetModuleFileNameW</code> 取得當前路徑</li>
+<li>建立 <code>%TEMP%\msbuild.bat</code> 並執行</li>
+<li>把 persistence 寫的 registry 清掉</li>
+<li>回報 C2 OK</li>
+<li>Terminate Process</li>
+</ol>
+<h3 id="Persistence"><a href="#Persistence" class="headerlink" title="Persistence"></a>Persistence</h3><p>在 address <code>0x180003530</code> 這個 function 是做持久化相關的功能。</p>
+<p>首先這個 function 會 call <code>sub_180002440</code> 檢查 process 是否是管理員權限，是的話直接 <code>CreateProcessW</code> 執行:<br><code>mshta.exe &quot;javascript:var o=new ActiveXObject(&#39;WScript.Shell&#39;);o.Run(&#39;C:\\Path\\to\\malware.exe&#39;,0);&quot;</code></p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/c0e18260dabcb17fa7d0f96db7ef2eb4.png" class="" title="c0e18260dabcb17fa7d0f96db7ef2eb4.png">
+
+<p>不是的話執行以下:</p>
+<ol>
+<li><code>RegOpenKeyExW</code> 打開 <code>HKCU\software\microsoft\windows\currentversion\run</code></li>
+<li><code>RegQueryValueExW</code> 檢查 <code>CacheDB</code> 是否為空</li>
+<li>空的話用 <code>RegSetValueExW</code> 把 <code>mshta.exe &quot;javascript:var o=new ActiveXObject(&#39;WScript.Shell&#39;);o.Run(&#39;C:\\Path\\to\\malware.exe&#39;,0);&quot;</code> 寫進去</li>
+<li><code>RegCloseKey</code></li>
+</ol>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/8ad172168dee0f48ba6a0c6f2d354c8d.png" class="" title="8ad172168dee0f48ba6a0c6f2d354c8d.png">
+<img src="/2026/01/05/TeamT5-Camp-Writeups/1aa10a51e679aec2fac3d060167a7808.png" class="" title="1aa10a51e679aec2fac3d060167a7808.png">
+
+<h3 id="其他你認為重要或者覺得有用的資訊"><a href="#其他你認為重要或者覺得有用的資訊" class="headerlink" title="其他你認為重要或者覺得有用的資訊"></a>其他你認為重要或者覺得有用的資訊</h3><p>Header 有露出 Name <code>httpSpy.dll</code>:</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/8a3053e5f26173a69138306e041742a9.png" class="" title="8a3053e5f26173a69138306e041742a9.png">
+
+<h2 id="分析受害-攻擊者身分"><a href="#分析受害-攻擊者身分" class="headerlink" title="分析受害&#x2F;攻擊者身分"></a>分析受害&#x2F;攻擊者身分</h2><p>根據 <code>System Safety Manager JD.pdf</code> 可以分析出多項資訊。</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/dc8246cd63b2acb773cbac4d459d9077.png" class="" title="dc8246cd63b2acb773cbac4d459d9077.png">
+<img src="/2026/01/05/TeamT5-Camp-Writeups/e1ba5fd16c0170a94b23a83d0639b09a.png" class="" title="e1ba5fd16c0170a94b23a83d0639b09a.png">
+
+<h3 id="受害國家"><a href="#受害國家" class="headerlink" title="受害國家"></a>受害國家</h3><p>PDF 直接寫：</p>
+<ul>
+<li>Location: Berlin, Germany</li>
+</ul>
+<p>代表攻擊者想讓受害者認為是一份德國職缺，因此受害國家應是德國、和此公司有相關業務的國家、歐洲國家都有機會。</p>
+<h3 id="攻擊族群"><a href="#攻擊族群" class="headerlink" title="攻擊族群"></a>攻擊族群</h3><p>正在找 System Safety Manager 相關工作的人，且具有 CS 或相關科系學歷。</p>
+<h2 id="加分題"><a href="#加分題" class="headerlink" title="加分題"></a>加分題</h2><h3 id="Malware-obfuscation-techniques"><a href="#Malware-obfuscation-techniques" class="headerlink" title="Malware obfuscation techniques"></a>Malware obfuscation techniques</h3><p>DLL 內的字串幾乎都有經過混淆如下:</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/0bebe0caadf88e7d22af47c256773580.png" class="" title="0bebe0caadf88e7d22af47c256773580.png">
+
+<p>圖中有兩種，第一個 <code>kernel.dll</code> 就只是單純的扣掉一個 offset。<br>第二個 xor，拿密文的第一個 byte 當成 key 去 xor 整個密文。以圖為例，拿 <code>0x58</code> 當 key，得到的結果為 <code>LoadLibraryA</code>。</p>
+<p>然後下面這一段是個 FNV-1a hash:</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/7073a01e56778cc88114274e5762042c.png" class="" title="7073a01e56778cc88114274e5762042c.png">
+<ul>
+<li><code>0xCBF29CE484222325</code> 拿去 google 就會查到，算是個很明顯的特徵</li>
+<li>然後搭配後面 <code>LoadLibraryA(kernel.dll)</code>，原本寫的是 <code>v12(kernel.dll)</code>，可以通靈出這一段是在做 dynamic API resolution</li>
+</ul>
+<h3 id="Config-offset-decoding-method"><a href="#Config-offset-decoding-method" class="headerlink" title="Config offset + decoding method"></a>Config offset + decoding method</h3><p><code>sub_180003F30</code> 這支 function 有相關的功能。</p>
+<ol>
+<li><code>CreateFileW</code> 打開自身的 ADS <code>:info</code></li>
+<li><code>:info</code> 不存在就執行 RC4 解密 size 為 4652 的 <code>byte_18003CA50</code>，並寫進 <code>:info</code></li>
+<li>如果 <code>:info</code> 存在就直接讀取裡面的內容</li>
+<li>將解密的結果存到 C2 的 <code>struct_a1-&gt;pBuf4652</code><ul>
+<li>結構如下: <img src="/2026/01/05/TeamT5-Camp-Writeups/ec2e475e07c7e4399f012f22639499ff.png" class="" title="ec2e475e07c7e4399f012f22639499ff.png"></li>
+</ul>
+</li>
+<li>在 4648 的位置寫入 4byte (<code>rand() * rand() / 2</code>)</li>
+</ol>
+<p>這一段為第一步:</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/2ad11ce41772ebab8b9ede990b425853.png" class="" title="2ad11ce41772ebab8b9ede990b425853.png">
+
+<p>這一段為 RC4 + <code>rand() * rand() / 2</code> + 寫入</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/891bb23fe14e3b32f3c46ac0ff39883d.png" class="" title="891bb23fe14e3b32f3c46ac0ff39883d.png">
+<ul>
+<li>第一個 while 做 Key Scheduling，第二個 while 為 RC4 的 PRGA</li>
+</ul>
+<p><code>byte_18003CA50</code> 解出來的內容只有兩個寬字串:</p>
+<ul>
+<li><code>http://download.uberlingen.com/index.php</code></li>
+<li><code>C:\Windows\System32\cmd.exe</code></li>
+</ul>
+<p>C2 config 主要在 <code>sub_1800047C0</code>。<br>首先，有一個 C2 連線的 struct:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">C2Desc</span> &#123;</span></span><br><span class="line">    <span class="type">void</span> *pStrings;</span><br><span class="line">    <span class="type">int</span>  port_or_flag;</span><br><span class="line">    <span class="type">int</span>  padding;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然後從 <code>struct_a1-&gt;pBuf4652</code> 抓東西出來:</p>
+<img src="/2026/01/05/TeamT5-Camp-Writeups/3cc9a9e9343dd6758f709051a2abda3f.png" class="" title="3cc9a9e9343dd6758f709051a2abda3f.png">
+<ul>
+<li><code>v3</code> 指向 <code>http://download.uberlingen.com/index.php</code></li>
+<li><code>port_or_flag</code> 是上一個 function <code>rand() * rand() / 2</code> 後的 4 byte</li>
+<li>其他 offset 我不太肯定</li>
+</ul>
+<p><code>sub_18000A630</code> 這個則包含了 POST 的格式，格式如下:<br><code>ctx=&lt;value&gt;&amp;\page4&amp;&lt;pwd=Juser&amp;00XXXXXX</code></p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>雖然寫的很趕，但很開心還是有錄取，之後有空的話再來分享 Camp 的心得。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/skysoul1024">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E7%9B%B8%E9%97%9C%E6%A8%A3%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">分析相關樣本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%97%E5%AE%B3%E8%80%85%E8%A7%B8%E7%99%BC%E6%83%A1%E6%84%8F%E7%A8%8B%E5%BC%8F%E7%9A%84%E6%96%B9%E5%BC%8F-%E8%BC%89%E5%85%A5%E6%B5%81%E7%A8%8B-%E8%AA%98%E7%99%BC%E6%96%B9%E5%BC%8F-%E5%8F%AF%E8%83%BD%E6%9C%89%E7%9A%84%E5%8A%A0%E8%A7%A3%E5%AF%86-%E7%AD%89%E7%AD%89"><span class="toc-number">1.1.</span> <span class="toc-text">受害者觸發惡意程式的方式 (載入流程&#x2F;誘發方式&#x2F;可能有的加解密&#x2F;等等)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%A1%E6%84%8F%E7%A8%8B%E5%BC%8F%E6%97%8F%E7%BE%A4"><span class="toc-number">1.2.</span> <span class="toc-text">惡意程式族群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A3%E6%9C%AC%E7%B7%A8%E8%AD%AF%E6%99%82%E9%96%93-%E6%8E%A8%E6%B8%AC%E6%94%BB%E6%93%8A%E6%99%82%E9%96%93"><span class="toc-number">1.3.</span> <span class="toc-text">樣本編譯時間 + 推測攻擊時間</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decoy-%E6%AA%94%E6%A1%88"><span class="toc-number">1.4.</span> <span class="toc-text">Decoy 檔案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C2"><span class="toc-number">1.5.</span> <span class="toc-text">C2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Persistence"><span class="toc-number">1.6.</span> <span class="toc-text">Persistence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E4%BD%A0%E8%AA%8D%E7%82%BA%E9%87%8D%E8%A6%81%E6%88%96%E8%80%85%E8%A6%BA%E5%BE%97%E6%9C%89%E7%94%A8%E7%9A%84%E8%B3%87%E8%A8%8A"><span class="toc-number">1.7.</span> <span class="toc-text">其他你認為重要或者覺得有用的資訊</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E5%8F%97%E5%AE%B3-%E6%94%BB%E6%93%8A%E8%80%85%E8%BA%AB%E5%88%86"><span class="toc-number">2.</span> <span class="toc-text">分析受害&#x2F;攻擊者身分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%97%E5%AE%B3%E5%9C%8B%E5%AE%B6"><span class="toc-number">2.1.</span> <span class="toc-text">受害國家</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E6%93%8A%E6%97%8F%E7%BE%A4"><span class="toc-number">2.2.</span> <span class="toc-text">攻擊族群</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%88%86%E9%A1%8C"><span class="toc-number">3.</span> <span class="toc-text">加分題</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Malware-obfuscation-techniques"><span class="toc-number">3.1.</span> <span class="toc-text">Malware obfuscation techniques</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Config-offset-decoding-method"><span class="toc-number">3.2.</span> <span class="toc-text">Config offset + decoding method</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">4.</span> <span class="toc-text">結語</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&text=TeamT5 Security Camp 2026 筆試"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&title=TeamT5 Security Camp 2026 筆試"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&is_video=false&description=TeamT5 Security Camp 2026 筆試"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TeamT5 Security Camp 2026 筆試&body=Check out this article: https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&title=TeamT5 Security Camp 2026 筆試"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&title=TeamT5 Security Camp 2026 筆試"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&title=TeamT5 Security Camp 2026 筆試"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&title=TeamT5 Security Camp 2026 筆試"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&name=TeamT5 Security Camp 2026 筆試&description=&lt;p&gt;本來想試試看漏洞分析或寫外掛，但時間有點緊迫，就選了自己比較擅長的逆向。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://skysoul1024.github.io/2026/01/05/TeamT5-Camp-Writeups/&t=TeamT5 Security Camp 2026 筆試"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2024-2026
+    kalakala
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/skysoul1024">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
