@@ -441,7 +441,20 @@ body td {
 }
 .post-content img {
   display: block;
+  margin: 1rem auto 1rem 0;
+  max-width: 100%;
+  height: auto;
+}
+.post-content figure {
   margin-left: 0;
+  margin-right: auto;
+  text-align: left;
+}
+#toc .toc-level-4 {
+  display: none;
+}
+#toc-footer .toc-level-4 {
+  display: none;
 }
 *,
 *:before,
