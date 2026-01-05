@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://skysoul1024.github.io/2024/09/23/IERAE-CTF-2024-Writeups/">
 <meta property="og:image" content="https://i.imgur.com/oOFYXnr.png">
 <meta property="article:published_time" content="2024-09-23T08:58:02.000Z">
-<meta property="article:modified_time" content="2026-01-04T17:26:41.762Z">
+<meta property="article:modified_time" content="2026-01-05T05:56:35.210Z">
 <meta property="article:author" content="kalakala">
 <meta property="article:tag" content="reverse">
 <meta property="article:tag" content="pwn">
@@ -215,7 +215,9 @@
 </ul>
 <p>舉個例子，我挑 <code>num = 80000</code>，所以 <code>nrow * ncol = 18446744073709631616</code>。</p>
 <p>將這個數分割成兩數當 nrow 和 ncol，<code>nrow = 65536, ncol = 281474976710657</code>，這就是一組可要造成 segmentation fault 的 input。</p>
-<p>FLAG: <code>IERAE&#123;s33?n07_41w4y5_1_cr3a73_d1ff1cu1t_pr0b13m5&#125;</code></p>
+<ul>
+<li>FLAG: <code>IERAE&#123;s33?n07_41w4y5_1_cr3a73_d1ff1cu1t_pr0b13m5&#125;</code></li>
+</ul>
 <h3 id="copy-and-paste"><a href="#copy-and-paste" class="headerlink" title="copy-and-paste"></a>copy-and-paste</h3><h4 id="Recon-1"><a href="#Recon-1" class="headerlink" title="Recon"></a>Recon</h4><p>題目有建議使用提供的 docker 環境，所以先把 docker 環境開好。</p>
 <p>FLAG 取得條件和 This is warmup 一樣是觸發 <code>SIGSEGV</code>。</p>
 <p>觀察 source code，<code>copy()</code> 的部分是將一個 buffer 複製到另一個 buffer，有機會造成 OOB write:</p>
@@ -243,7 +245,9 @@
 </blockquote>
 <p>那麼只要去 container 中找到 pipe, FIFO, socket 的檔案，然後用他們 create buffer 就能成功取得 size &#x3D; -1 的 buffer。</p>
 <p>最後我是選擇 <code>/var/run</code> 和 <code>/bin/bash</code>，然後 <code>/bin/bash</code> 覆蓋到 <code>/var/run</code>。</p>
-<p>FLAG: <code>IERAE&#123;7h3_f1rs7_s73p_7o_b3_4_pwn3r_51a7806b&#125;</code></p>
+<ul>
+<li>FLAG: <code>IERAE&#123;7h3_f1rs7_s73p_7o_b3_4_pwn3r_51a7806b&#125;</code></li>
+</ul>
 <h2 id="rev"><a href="#rev" class="headerlink" title="rev"></a>rev</h2><h3 id="Assignment"><a href="#Assignment" class="headerlink" title="Assignment"></a>Assignment</h3><p>使用 ida 分析，<code>main</code> 把 FLAG 亂排:<br><img src="/2024/09/23/IERAE-CTF-2024-Writeups/"  alt="Imgur" style="display: block; margin-left: 0;"></p>
 <p>直接 decompile，ida 會幫忙把 flag 排好:<br><img src="/2024/09/23/IERAE-CTF-2024-Writeups/"  alt="Imgur" style="display: block; margin-left: 0;"></p>
 <p>FLAG: <code>IERAE&#123;s0me_r4nd0m_str1ng_5a9354c&#125;</code></p>
@@ -257,10 +261,14 @@
 </ul>
 <h4 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h4><p>我是寫個 python，我自己用 GPT 叫它算有算錯幾個字，聽別人說 Copilot 它有算正確XD。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">flag = &#x27;&#x27;</span><br><span class="line">flag += chr(232 ^ 161)</span><br><span class="line">flag += chr(110 ^ 43)</span><br><span class="line">flag += chr(178 ^ 224)</span><br><span class="line">flag += chr(172 ^ 237)</span><br><span class="line">flag += chr(212 ^ 145)</span><br><span class="line">flag += chr(25 ^ 98)</span><br><span class="line">flag += chr(53 ^ 121)</span><br><span class="line">flag += chr(63 ^ 74)</span><br><span class="line">flag += chr(135 ^ 230)</span><br><span class="line">flag += chr(92 ^ 3)</span><br><span class="line">flag += chr(38 ^ 23)</span><br><span class="line">flag += chr(250 ^ 137)</span><br><span class="line">flag += chr(216 ^ 135)</span><br><span class="line">flag += chr(5 ^ 86)</span><br><span class="line">flag += chr(69 ^ 117)</span><br><span class="line">flag += chr(226 ^ 189)</span><br><span class="line">flag += chr(137 ^ 186)</span><br><span class="line">flag += chr(148 ^ 240)</span><br><span class="line">flag += chr(64 ^ 53)</span><br><span class="line">flag += chr(130 ^ 225)</span><br><span class="line">flag += chr(241 ^ 197)</span><br><span class="line">flag += chr(151 ^ 227)</span><br><span class="line">flag += chr(203 ^ 250)</span><br><span class="line">flag += chr(179 ^ 220)</span><br><span class="line">flag += chr(216 ^ 182)</span><br><span class="line">flag += chr(101 ^ 4)</span><br><span class="line">flag += chr(238 ^ 130)</span><br><span class="line">flag += chr(61 ^ 64)</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
-<p>FLAG: <code>IERAE&#123;Lua_1s_S0_3duc4t1onal&#125;</code></p>
+<ul>
+<li>FLAG: <code>IERAE&#123;Lua_1s_S0_3duc4t1onal&#125;</code></li>
+</ul>
 <h2 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h2><h3 id="OMG"><a href="#OMG" class="headerlink" title="OMG"></a>OMG</h3><p><img src="https://i.imgur.com/oOFYXnr.png" alt="Image"></p>
 <p>按 Start，然後按 browser 的上一頁 33 次即可取得 FLAG。</p>
-<p>FLAG: <code>IERAE&#123;Tr3ndy_4ds.LOL&#125;</code></p>
+<ul>
+<li>FLAG: <code>IERAE&#123;Tr3ndy_4ds.LOL&#125;</code></li>
+</ul>
 
   </div>
 </article>

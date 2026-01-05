@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta property="og:type" content="article">
+<meta property="og:title" content="AIS3 EOF 2026 初賽 Writeups">
+<meta property="og:url" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/index.html">
+<meta property="og:site_name" content="kalakala">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/user_score.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/image.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_122af958d3ad8582e4c1ecfd8fab5527.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_3eadf0a1c4376006619869d2ff8fb37c.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_61da424bdce4f428994ec4170c50d95b.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_b5415f86a4592e57da4683c95c0a9aa8.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_84672b57ecbe464fedc5391b2bb52861.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_45950ff2011c8dadbda18881509f072a.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_a45aad90739bc38e3c13458cbba09cc6.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_0158e1d4ef2c16dab3259743f7bd61af.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_66ad2339b4745e0e5d6f2b7451ea61b7.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_c7178b58589492459149b8478572d87e.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_551223d5cecb6faac1272db70f42190d.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/image_mrt.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_032de58a1929a6fc2dce5b58e83664b0.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_4c325827ccde0e4db8523b157ee1925b.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_5da3f6bd6e420fa9be49f93fbb3919f4.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_ffa27ed44bf9f3dfc7e724b36cc78a4d.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_6c6e9da651f67512564dad26c6a16353.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_cdf5cf09c79dd2275945e3a037306158.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_6af6ff3e1562b235264914a0f6f4bbf0.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_399cf49ad2dda6ce7fa8e6ce6671d68a.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_82d24ecd48c75d0d6169499dc18af0ab.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_cb46f43965786ce7faa7d9e06a9da842.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_72b29d829fd793a5b72bce7ae7f6045c.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_b36d504e0c4dff7aa2d33323dcba89c6.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_490678c8139a20c472e48a4fdd8c97cf.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_6402c685db3a1ff814b189b02238a4a1.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_5465fd1e98e8e46655197c7f476f62f9.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_56c717077fcd473d81249c9b00430068.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_7ddc4af70809c88a940fec5c1ee32e7b.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_d2785984a464313a75d1a27d6dee087c.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_21e581fbe0baf1ffb1d225c96be2f3ab.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_b42651e41b080699ae10494bb8ec2691.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_00df38c6f850020453ec03995fa14243.png">
+<meta property="og:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/upload_86dafc3c640244ea7f55d8d1ee84500d.png">
+<meta property="article:published_time" content="2026-01-05T05:10:47.000Z">
+<meta property="article:modified_time" content="2026-01-05T07:07:55.402Z">
+<meta property="article:author" content="kalakala">
+<meta property="article:tag" content="reverse">
+<meta property="article:tag" content="misc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/user_score.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/terminal.svg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/terminal.svg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/terminal.svg">
+        
+      
+    
+    <!-- title -->
+    <title>AIS3 EOF 2026 初賽 Writeups</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Categories</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2026/01/05/TeamT5-Camp-Writeups/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&text=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&title=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&is_video=false&description=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=AIS3 EOF 2026 初賽 Writeups&body=Check out this article: https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&title=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&title=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&title=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&title=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&name=AIS3 EOF 2026 初賽 Writeups&description=&lt;img src=&#34;/2026/01/05/EOF-2026-Writeups/user_score.png&#34; class title=&#34;alt text&#34;&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&t=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Welcome"><span class="toc-number">1.</span> <span class="toc-text">Welcome</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Structured-Small"><span class="toc-number">2.</span> <span class="toc-text">Structured - Small</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bored"><span class="toc-number">3.</span> <span class="toc-text">bored</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Structured-Large"><span class="toc-number">4.</span> <span class="toc-text">Structured - Large</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MRTGuessor"><span class="toc-number">5.</span> <span class="toc-text">MRTGuessor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Impure"><span class="toc-number">6.</span> <span class="toc-text">Impure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3-GO"><span class="toc-number">7.</span> <span class="toc-text">ポケモン GO</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        AIS3 EOF 2026 初賽 Writeups
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">kalakala</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-01-05T05:10:47.000Z" class="dt-published" itemprop="datePublished">2026-01-05</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/misc/" rel="tag">misc</a>, <a class="p-category" href="/tags/reverse/" rel="tag">reverse</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <img src="/2026/01/05/EOF-2026-Writeups/user_score.png" class="" title="alt text">
+
+<p>逆向破台，開心，感謝隊友 carry 進決賽。</p>
+<h2 id="Welcome"><a href="#Welcome" class="headerlink" title="Welcome"></a>Welcome</h2><img src="/2026/01/05/EOF-2026-Writeups/image.png" class="" title="alt text">
+<ul>
+<li>FLAG: <code>EOF&#123;2026-quals-in-2025&#125;</code></li>
+</ul>
+<h2 id="Structured-Small"><a href="#Structured-Small" class="headerlink" title="Structured - Small"></a>Structured - Small</h2><p>這題提供了 11 個 binary <code>small-flag_0</code> ~ <code>small-flag_10</code>，每個 binary <code>main</code> 的邏輯是檢查 <code>argv[1]</code> 前 8 個 byte 是否等於某個固定字串，如果等於就回傳 0。</p>
+<p>然後比對的方法有三種 pattern:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_122af958d3ad8582e4c1ecfd8fab5527.png" class="" title="alt text">
+<img src="/2026/01/05/EOF-2026-Writeups/upload_3eadf0a1c4376006619869d2ff8fb37c.png" class="" title="image">
+<img src="/2026/01/05/EOF-2026-Writeups/upload_61da424bdce4f428994ec4170c50d95b.png" class="" title="image">
+
+<p>手動把字串拉出來看就會發現可以拼出 flag。</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_b5415f86a4592e57da4683c95c0a9aa8.png" class="" title="image">
+<ul>
+<li>FLAG: <code>EOF&#123;5TRuCTuR3D_r3V3R53_3ng1N3eR1Ng_906fac919504945f98&#125;</code></li>
+</ul>
+<h2 id="bored"><a href="#bored" class="headerlink" title="bored"></a>bored</h2><p>這題提供 <code>firmware.bin</code> 和 <code>signal.vcd</code>。</p>
+<p>題目敘述直接給我們 firmware 資訊</p>
+<blockquote>
+<p>Let’s do some IoT reversing. Target: Luminary Micro Stellaris LM3S6965EVB.</p>
+</blockquote>
+<p>試著用 QEMU 模擬看看:<br><code>qemu-system-arm -M lm3s6965evb -kernel firmware.bin -nographic</code></p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_84672b57ecbe464fedc5391b2bb52861.png" class="" title="image">
+
+<p>跑得起來，然後輸入 Input，會回一個亂碼 Output。</p>
+<p>接下來分析 <code>signal.vcd</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$scope module UART $end</span><br><span class="line">$var wire 1 d data $end</span><br><span class="line">$upscope $end</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>data 只有 1 bit，所以應該是 UART</li>
+</ul>
+<p>然後觀察時間差:</p>
+<ul>
+<li><code>#1145826 - #1041660 = 104166</code></li>
+<li><code>#2395818 - #2291652 = 104166</code></li>
+<li><code>#2499984 - #2395818 = 104166</code></li>
+</ul>
+<p>bit_time &#x3D; 104166<br>如果這個時間單位是 ns，那 104166 ns &#x3D; 104.166 µs → baud 約 <code>1/104.166µs ≈ 9600</code></p>
+<p>有這些資訊後請 LLM 寫個腳本算出整個 byte stream:<br><a target="_blank" rel="noopener" href="https://gist.github.com/skysoul1024/e3dbb79abcdf128deb4a9bfc45d30f7d">script</a></p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_45950ff2011c8dadbda18881509f072a.png" class="" title="image">
+
+<p>把解出來的字串餵給 QEMU Input 就可以拿到 flag。</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_a45aad90739bc38e3c13458cbba09cc6.png" class="" title="image">
+<ul>
+<li>FLAG: <code>EOF&#123;ExP3d14i0N_33_15_4he_G0AT&#125;</code></li>
+</ul>
+<h2 id="Structured-Large"><a href="#Structured-Large" class="headerlink" title="Structured - Large"></a>Structured - Large</h2><p>這題是 <code>Structured - Small</code> 的進階版，從 11 個 binary 變成 25137 個，所以沒辦法手動解。</p>
+<p>我的解法是把所有可能的 pattern 都找出來，然後按照順序把字串拼起來。</p>
+<p>具體作法是先把已知的 pattern 寫進去，像是:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.text:0000000000001077 48 B8 39 34 30 35 39 31 39 63                 mov     rax, 6339313935303439h</span><br><span class="line">.text:0000000000001081 48 39 C1                                      cmp     rcx, rax</span><br><span class="line">.text:0000000000001084 0F 95 C0                                      setnz   al</span><br><span class="line">.text:0000000000001087 0F B6 C0                                      movzx   eax, al</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def extract_simple(data: bytes) -&gt; bytes | None:</span><br><span class="line">    i = 0</span><br><span class="line">    while True:</span><br><span class="line">        i = data.find(b&quot;\x48\xB8&quot;, i)  # movabs rax, imm64</span><br><span class="line">        if i == -1:</span><br><span class="line">            return None</span><br><span class="line">        if i + 2 + 8 + len(SIG1_AFTER_IMM) &lt;= len(data):</span><br><span class="line">            imm_le = data[i+2:i+10]</span><br><span class="line">            after  = data[i+10:i+10+len(SIG1_AFTER_IMM)]</span><br><span class="line">            if after == SIG1_AFTER_IMM:</span><br><span class="line">                imm = int.from_bytes(imm_le, &quot;little&quot;, signed=False)</span><br><span class="line">                return emit_u64_be(imm)</span><br><span class="line">        i += 2</span><br></pre></td></tr></table></figure>
+
+<p>以此類推。</p>
+<p>然後紀錄一下還缺哪些 binary:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">chunks: dict[int, bytes] = &#123;&#125;</span><br><span class="line">missing: list[int] = []</span><br><span class="line"></span><br><span class="line">for p in paths:</span><br><span class="line">    idx = parse_idx(p.name)</span><br><span class="line">    if idx is None:</span><br><span class="line">        continue</span><br><span class="line">    b = extract_one(p)</span><br><span class="line">    if b is None:</span><br><span class="line">        missing.append(idx)</span><br><span class="line">        continue</span><br><span class="line">    chunks[idx] = b</span><br></pre></td></tr></table></figure>
+
+<p>執行後會印出這樣:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_0158e1d4ef2c16dab3259743f7bd61af.png" class="" title="image">
+
+<p>然後就從最小的 binary 開始把缺的 pattern 填上去，總共也沒幾種，最後就可以得到以下圖片。<br>會解壞應該是有些 pattern 寫壞了，但通靈一下還是能得到 flag。</p>
+<p><a target="_blank" rel="noopener" href="https://gist.github.com/skysoul1024/477621f977a4b9cc939f2daa631ec936">script</a></p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_66ad2339b4745e0e5d6f2b7451ea61b7.png" class="" title="image">
+<ul>
+<li>FLAG: <code>EOF&#123;w31l_d0N3_b0t&#125;</code></li>
+</ul>
+<h2 id="MRTGuessor"><a href="#MRTGuessor" class="headerlink" title="MRTGuessor"></a>MRTGuessor</h2><p>根據圖片當下時間為 19:26，然後有顯示的兩班車的終點站很特別分別是昆陽和亞東醫院。<br>用 <code>exiftool</code> 可以看到精準到秒的時間:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_c7178b58589492459149b8478572d87e.png" class="" title="image">
+
+<p>那麼可以預測往昆陽的班次很高機率在 19:27 ~ 19:28 出發，而往亞東則是 19:28 ~ 19:29<br>根據別人整理的時刻表:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_551223d5cecb6faac1272db70f42190d.png" class="" title="image">
+<img src="/2026/01/05/EOF-2026-Writeups/image_mrt.png" class="" title="image">
+
+<p>可以整理出:</p>
+<ul>
+<li>往昆陽:<ul>
+<li>27: 永春</li>
+<li>28: 後山埤、忠孝新生、新埔</li>
+</ul>
+</li>
+<li>往亞東醫院:<ul>
+<li>28: 亞東醫院、忠孝新生、市政府</li>
+<li>29: 昆陽</li>
+</ul>
+</li>
+</ul>
+<p>只有忠孝新生符合。<br>然後搜了一下忠孝新生影片，找到以下:<br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=-gsPo3sYU8I">https://www.youtube.com/watch?v=-gsPo3sYU8I</a></p>
+<ul>
+<li><img src="/2026/01/05/EOF-2026-Writeups/upload_032de58a1929a6fc2dce5b58e83664b0.png" class="" title="image">
+<ul>
+<li>有圓頂 + 時間看板 + 平燈，完美符合照片的地點</li>
+</ul>
+</li>
+</ul>
+<p>因此猜測為忠孝新生。</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_4c325827ccde0e4db8523b157ee1925b.png" class="" title="image">
+<ul>
+<li>FLAG: <code>EOF&#123;catch_up_MRT_by_checking_the_timetable_in_advance&#125;</code></li>
+</ul>
+<h2 id="Impure"><a href="#Impure" class="headerlink" title="Impure"></a>Impure</h2><p>題目給了一個 polluted python3.15，然後 hint 為 <code>bindiff python3.15</code></p>
+<p>所以思路上是先想辦法從題目給的東西中撈出編譯資訊和環境資訊，自己編譯一個乾淨的 python3.15。</p>
+<p>dump info:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;==comment==&quot;</span>; readelf -p .comment ./python3.15 | <span class="built_in">head</span> -50</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;==notes==&quot;</span>; readelf -n ./python3.15 | <span class="built_in">head</span> -80</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;==dynamics==&quot;</span>; readelf -d ./python3.15 | egrep <span class="string">&#x27;NEEDED|INTERP|RPATH|RUNPATH&#x27;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;==dwarf==&quot;</span>; readelf --debug-dump=info ./python3.15 | grep -m 10 -E <span class="string">&#x27;DW_AT_producer|DW_AT_comp_dir&#x27;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;==glibc req top==&quot;</span>; objdump -T ./python3.15 | grep GLIBC_ | sed <span class="string">&#x27;s/.*GLIBC_/GLIBC_/&#x27;</span> | <span class="built_in">sort</span> -Vu | <span class="built_in">tail</span> -10</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;==git commitID==&quot;</span>; ./python3.15 -E -s -c <span class="string">&quot;import sys; print(sys.version)&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>然後根據這些資訊用 Docker 建環境編譯。</p>
+<p>因為這題有留下 symbol，所以可以用 <code>nm</code> 比對一下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nm -n --defined-only python3.15       | awk &#x27;&#123;print $3&#125;&#x27; | sort -u &gt; syms.bad</span><br><span class="line">nm -n --defined-only python3.15.clean | awk &#x27;&#123;print $3&#125;&#x27; | sort -u &gt; syms.clean</span><br><span class="line">comm -13 syms.clean syms.bad | head</span><br></pre></td></tr></table></figure>
+
+<p>會找到一些怪怪的東西</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_5da3f6bd6e420fa9be49f93fbb3919f4.png" class="" title="image">
+
+<p>找到 address IDA 直接飛過去看:<br><code>nm -n --defined-only python3.15 | egrep &#39;trigger_bytes|python_path&#39;</code></p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_ffa27ed44bf9f3dfc7e724b36cc78a4d.png" class="" title="image">
+
+<p>在 <code>list_poorcompare</code> 下有個神祕的 xor:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_6c6e9da651f67512564dad26c6a16353.png" class="" title="image">
+
+<p>解出來就是 flag。</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_cdf5cf09c79dd2275945e3a037306158.png" class="" title="image">
+<ul>
+<li>FLAG: <code>EOF&#123;_B4CkD0oR3d_CpYT70N&#125;</code></li>
+</ul>
+<h2 id="ポケモン-GO"><a href="#ポケモン-GO" class="headerlink" title="ポケモン GO"></a>ポケモン GO</h2><p>這題直接丟 IDA 看超醜，die.exe 發現有加殼:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_6af6ff3e1562b235264914a0f6f4bbf0.png" class="" title="image">
+
+<p>那麼就動態先跑起來看能不能直接 dump 出解殼後的東西。</p>
+<p>一開始會做一些看起來像 Dynamic API Resolution 的事情:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_399cf49ad2dda6ce7fa8e6ce6671d68a.png" class="" title="image">
+<img src="/2026/01/05/EOF-2026-Writeups/upload_82d24ecd48c75d0d6169499dc18af0ab.png" class="" title="image">
+
+<p>然後會跟我們要 key:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_cb46f43965786ce7faa7d9e06a9da842.png" class="" title="image">
+
+<p>往後走會看到 binary 會拿我們的輸入去算數:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_72b29d829fd793a5b72bce7ae7f6045c.png" class="" title="image">
+<p>然後 cmp 算出來的結果:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_b36d504e0c4dff7aa2d33323dcba89c6.png" class="" title="image">
+
+<p>這一大段算數總共 1961 行指令，請 LLM 寫腳本解，解完得到 key: <code>1s_th1s_y0u7_f1@g?</code><br><a target="_blank" rel="noopener" href="https://gist.github.com/skysoul1024/5353e2e89fd92ea03c73ef95b8864b7e">script</a></p>
+<p>往後走會看到 call <code>VirtualProtect(0x401000, 0x15600, PAGE_EXECUTE_READWRITE)</code>:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_490678c8139a20c472e48a4fdd8c97cf.png" class="" title="image">
+<img src="/2026/01/05/EOF-2026-Writeups/upload_6402c685db3a1ff814b189b02238a4a1.png" class="" title="image">
+
+<p>到這裡就能確定解殼後的 binary 的位置，然後再走到程式的進入點:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_5465fd1e98e8e46655197c7f476f62f9.png" class="" title="image">
+
+<p>設 <code>405CE4</code> 為 OEP dump。</p>
+<p>第二支 binary 有做 Antidebugger，跑一跑會直接 crash，我的方法是用 ScyllaHide 確保能正常運行，但有的小地方還是會 crash，我選擇手動 patch 或跳過。</p>
+<p>但這支 binary 靜態看還是很醜:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_56c717077fcd473d81249c9b00430068.png" class="" title="image">
+
+<p>手動 undefined + analyze 會發現是因為被塞了 junk code:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_7ddc4af70809c88a940fec5c1ee32e7b.png" class="" title="image">
+
+<p>我總共發現 6 種 junk code pattern:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">1.</span><br><span class="line">.text:0040421C E8                                            db 0E8h</span><br><span class="line">.text:0040421D 01                                            db    1</span><br><span class="line">.text:0040421E 02                                            db    2</span><br><span class="line">.text:0040421F 03                                            db    3</span><br><span class="line">.text:00404220 04                                            db    4</span><br><span class="line">.text:00404221 05                                            db    5</span><br><span class="line">.text:00404222 EB                                            db 0EBh</span><br><span class="line">.text:00404223 FF                                            db 0FFh</span><br><span class="line"></span><br><span class="line">1. </span><br><span class="line">.text:0040422C E8                                            db 0E8h</span><br><span class="line">.text:0040422D 90                                            db  90h</span><br><span class="line">.text:0040422E 90                                            db  90h</span><br><span class="line">.text:0040422F 90                                            db  90h</span><br><span class="line">.text:00404230 90                                            db  90h</span><br><span class="line">.text:00404231 90                                            db  90h</span><br><span class="line"></span><br><span class="line">1. </span><br><span class="line">.text:00404578 00                                            db    0</span><br><span class="line">.text:00404579 E8                                            db 0E8h</span><br><span class="line">.text:0040457A 88                                            db  88h</span><br><span class="line">.text:0040457B 99                                            db  99h</span><br><span class="line">.text:0040457C AA                                            db 0AAh</span><br><span class="line">.text:0040457D BB                                            db 0BBh</span><br><span class="line"></span><br><span class="line">1. </span><br><span class="line">.text:00404586 E8                                            db 0E8h</span><br><span class="line"></span><br><span class="line">1. </span><br><span class="line">.text:0040459E E8                                            db 0E8h</span><br><span class="line">.text:0040459F 00                                            db    0</span><br><span class="line"></span><br><span class="line">6.</span><br><span class="line">.text:004045BA EB                                            db 0EBh</span><br><span class="line">.text:004045BB E9                                            db 0E9h</span><br><span class="line">.text:004045BC 90                                            db  90h</span><br><span class="line">.text:004045BD 90                                            db  90h</span><br><span class="line">.text:004045BE 90                                            db  90h</span><br><span class="line">.text:004045BF 90                                            db  90h</span><br></pre></td></tr></table></figure>
+
+<p>除了第四種單獨 <code>E8</code> 不好 patch，其他都直接 patch 成 <code>0x90</code>:<br><a target="_blank" rel="noopener" href="https://gist.github.com/skysoul1024/5353e2e89fd92ea03c73ef95b8864b7e">script</a></p>
+<p>然後手動把 <code>E8</code> 的部分修好，就可拿到一個 IDA 看起來很乾淨的 binary。</p>
+<p>關鍵邏輯在 <code>4041E0</code> 位置的 function，前面會 print 一隻皮卡丘跟一些字串，接著</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_d2785984a464313a75d1a27d6dee087c.png" class="" title="image">
+
+<ul>
+<li><code>xxtea_403390</code> 會加密 <code>byte_4216B0</code></li>
+<li><code>byte_4216B0</code> 為使用者輸入</li>
+</ul>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_21e581fbe0baf1ffb1d225c96be2f3ab.png" class="" title="image">
+
+<ul>
+<li><code>cmp_401110</code> 把加密結果跟 <code>byte_420978</code> 比對</li>
+</ul>
+<p>到這邊目標很明確，想辦法找到明文加密後等於 <code>byte_420978</code>，最後走到 print <code>You caught a Pokemon</code>。</p>
+<p>那麼按照 <code>xxtea_403390</code> 寫解密腳本，會發現解不出正確的 flag:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_b42651e41b080699ae10494bb8ec2691.png" class="" title="image">
+
+<p>動態跑也看不出個所以然，但有確認解密腳本沒有寫壞，那麼就只剩下對 cmp function 或 input 有動手腳了。</p>
+<p>xref <code>cmp_401110</code> 可以找到:</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_00df38c6f850020453ec03995fa14243.png" class="" title="image">
+
+<p>試著先把原本目標密文 <code>xor 0xE9</code> 再解密就可以得到 flag。<br><a target="_blank" rel="noopener" href="https://gist.github.com/skysoul1024/5353e2e89fd92ea03c73ef95b8864b7e">script</a></p>
+<p>以下為解出 $\text{Flag}$ 的照片：</p>
+<img src="/2026/01/05/EOF-2026-Writeups/upload_86dafc3c640244ea7f55d8d1ee84500d.png" class="" title="image">
+<ul>
+<li>FLAG: <code>EOF&#123;ebf26c99-ce3b-4df6-92d1-702f0902d19d&#125;</code></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/categories/">Categories</a></li>
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Welcome"><span class="toc-number">1.</span> <span class="toc-text">Welcome</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Structured-Small"><span class="toc-number">2.</span> <span class="toc-text">Structured - Small</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bored"><span class="toc-number">3.</span> <span class="toc-text">bored</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Structured-Large"><span class="toc-number">4.</span> <span class="toc-text">Structured - Large</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MRTGuessor"><span class="toc-number">5.</span> <span class="toc-text">MRTGuessor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Impure"><span class="toc-number">6.</span> <span class="toc-text">Impure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3-GO"><span class="toc-number">7.</span> <span class="toc-text">ポケモン GO</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&text=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&title=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&is_video=false&description=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=AIS3 EOF 2026 初賽 Writeups&body=Check out this article: https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&title=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&title=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&title=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&title=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&name=AIS3 EOF 2026 初賽 Writeups&description=&lt;img src=&#34;/2026/01/05/EOF-2026-Writeups/user_score.png&#34; class title=&#34;alt text&#34;&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://skysoul1024.github.io/2026/01/05/EOF-2026-Writeups/&t=AIS3 EOF 2026 初賽 Writeups"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2024-2026
+    kalakala
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Categories</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
